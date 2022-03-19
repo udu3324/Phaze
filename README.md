@@ -11,15 +11,15 @@ A maze with extra things to do. <a  href="https://reactjs.org/">React</a>, <a  h
 **Tools** <br/>
 You can use the tools as a advantage to finish the maze faster. A tool is activated when it turns from "(" to "[". You can only have one tool active at a time. The key-bind for a tool is underlined.
  
-**Not Active**
+**Not Active** <br/>
 You can't use them right now. Activate it by pressing the button or typing the key-bind. <br/>
 ![not active](https://cdn.discordapp.com/attachments/751935149578387456/954860602545807380/unknown.png)
     
-**Active**
+**Active** <br/>
 Use them! <br/>
 ![active](https://cdn.discordapp.com/attachments/751935149578387456/954861080230903878/unknown.png)
     
-**Phaze Tool**  
+**Phaze Tool** <br/>
 Pressing E toggles Phaze. When moving with Phaze toggled, you go to the next branch in the maze. Each maze gives only 10 Phazes. The blue dots (not drawn in game) show where the player can move with Phaze on. <br/>
 ![phaze](https://cdn.discordapp.com/attachments/751935149578387456/954856457227087962/unknown.png) <br/>
 ![phaze2](https://cdn.discordapp.com/attachments/751935149578387456/954863271339499540/unknown.png) <br/>

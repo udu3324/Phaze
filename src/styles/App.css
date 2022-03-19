@@ -1,3 +1,10 @@
+:root {
+  --gameObjSize: 24px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
+
 .App {
   text-align: center;
 }
@@ -13,11 +20,111 @@
   color: white;
 }
 
+/* Up Div Stuff*/
+
+#left, #middle, #right {
+  display: inline-block; 
+}
+
+.top-btn {
+  font-family: 'JetBrains Mono', monospace;
+  color: #ffffff;
+  font-size: calc(8px + 2vmin);
+  background: none;
+  border: none;
+  padding: 4px;
+  display: flex;
+}
+
+.top-btn:hover {
+  background: #00000038;
+  border: none;
+}
+
+.top-btn:active {
+  background-color: #00000086;
+}
+
+/* Stopwatch */
+.stopwatch {
+  font-size: calc(30px + 2vmin);
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+/* Down Div Stuff*/
+
+#down {
+  display: inline-block; 
+}
+
+.down-btn {
+  font-family: 'JetBrains Mono', monospace;
+  color: #ffffff;
+  font-size: calc(19px + 2vmin);
+  background: none;
+  border: none;
+  padding: 4px;
+  display: flex;
+  border-radius: 30px;
+  margin: 4px;
+}
+
+.down-btn:hover {
+  background: #00000038;
+  border: none;
+}
+
+.down-btn:active {
+  background-color: #00000086;
+}
+
 /* Game */
 #maze-canvas {
   line-height: 0px;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
 
 #game-obj {
-  width: 15px;
+  width: var(--gameObjSize);
+}
+
+/* Config */
+.config-div {
+  display: none;
+  margin-top: 20vh;
+  position: fixed;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.config-box {
+  color: #ffffff;
+  box-shadow: 0px 0px 17px 1px #1d1f26;
+  background: #282c34;
+  padding: 18px;
+  width: 85%;
+  border-radius: 5px;
+  margin: auto;
+  text-align: left;
+  font-size: 18px;
+  line-height: 23px;
+}
+
+input[type="number" i] {
+  width: 48px;
+  border: 2px solid #000000;
+  margin-bottom: 4px;
+  background-color: #4c515c;
+  border-radius: 7px;
+}
+
+/* Remove Focus */
+textarea:focus, input:focus, button:focus {
+    outline: none;
 }

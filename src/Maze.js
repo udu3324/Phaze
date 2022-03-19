@@ -9,7 +9,7 @@ import path from "./assets/path.png";
 
 import missing from "./assets/missing.png";
 
-import { maze } from ".";
+import { gameMaze } from ".";
 
 // https://stackoverflow.com/questions/15164655/generate-html-table-from-2d-javascript-array
 function makeImageTable(myArray) {
@@ -55,16 +55,16 @@ function createMarkup(array) {
 class Maze extends React.Component {
     render() {
         return (
-            <div id="maze-canvas" dangerouslySetInnerHTML={createMarkup(maze)} />
+            <div id="maze-canvas" dangerouslySetInnerHTML={createMarkup(gameMaze)} />
         );
     }
 }
 
 export function updateCanvas() {
-    //updates the canvas if maze has changed
+    //updates the canvas
     const div = document.getElementById("maze-canvas");
 
-    div.innerHTML = makeImageTable(maze);
+    div.innerHTML = makeImageTable(gameMaze);
 }
 
 export default Maze;

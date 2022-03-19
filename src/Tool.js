@@ -1,5 +1,11 @@
 import maze from 'amazejs';
+import { newMaze } from '.';
 import { updateCanvas } from './Maze';
+import { phazePlayer, phazeToggled, resetPhaze, togglePhaze } from './Phaze';
+import { quakePlayer, quakeToggled, resetQuake, toggleQuake } from './Quake';
+import { setRunningShared, setTimeShared } from './Stopwatch';
+
+export var finished = false;
 
 function createArray(length) {
     var arr = new Array(length || 0),
@@ -14,7 +20,6 @@ function createArray(length) {
 }
 
 export function createMaze(mazeSize) {
-
     //create a maze
     var m = new maze.Backtracker(mazeSize, mazeSize);
     m.generate();
@@ -32,12 +37,12 @@ export function createMaze(mazeSize) {
 
     for (let index = 0; index < countOfLines; ++index) {
         //get current row in string
-        var strRow = mazeString.substring(startingSubstringTemp, mazeSize + 1 + startingSubstringTemp).substring(1)
+        var strRow = mazeString.substring(startingSubstringTemp, countOfLines + 1 + startingSubstringTemp).substring(1)
 
         //convert it to a array and add it to mazeArray
         mazeArray[index] = Array.from(strRow)
 
-        startingSubstringTemp = mazeSize + 1 + startingSubstringTemp;
+        startingSubstringTemp = countOfLines + 1 + startingSubstringTemp;
     }
 
     //replace 1s and 0s with walls and spaces
@@ -89,7 +94,7 @@ export function getPlayerPosition(array) {
     }
 }
 
-function walkOverPath(array, playerPos, item) {
+export function walkOverPath(array, playerPos, item) {
     if (item === "path") {
         array[playerPos[0]][playerPos[1]] = "space"
     } else {
@@ -99,17 +104,72 @@ function walkOverPath(array, playerPos, item) {
     return array
 }
 
-var finished = false;
+export function resetMaze() {
+    //reset maze by creating a new one and updating canvas
+    console.log("resetting maze!")
 
-function finishedMaze(array) {
+    newMaze()
+
+    finished = false;
+
+    //stop and reset timer
+    setRunningShared(false)
+    setTimeShared(0)
+
+    resetPhaze()
+    resetQuake()
+    updateCanvas()
+}
+
+export function redoMaze(array) {
+    console.log("redoing maze!")
+
+    //turn all path to space
+    //turn all rainbow to space
+    //add back start
+    replace(array, "path", "space")
+    replace(array, "rainbow", "space")
+    array[array.length - 2][1] = "start"
+
+    //stop and reset timer
+    setRunningShared(false)
+    setTimeShared(0)
+
+    resetPhaze()
+    resetQuake()
+    updateCanvas()
+}
+
+export function finishedMaze(array) {
+    //stop timer
+    setRunningShared(false)
+
     finished = true
+    console.log("finished!")
 
-    //replace path with rainbow and finish item
+    //replace path and finish with rainbow
     replace(array, "path", "rainbow")
 
     var finishPos = findItem(array, "finish")
     array[finishPos[0]][finishPos[1]] = "rainbow"
+
+    //change redo button to reset
+    var redobtn = document.querySelector('#redo-reset-btn');
+    redobtn.innerHTML = redobtn.innerHTML.substring(0, redobtn.innerHTML.length - 3) + "eset";
+
+    //toggle all tools off
+    if (phazeToggled) {
+        togglePhaze()
+    }
+    if (quakeToggled) {
+        toggleQuake()
+    }
+
+    updateCanvas()
+    boolRunOnce = true
 }
+
+var boolRunOnce = true;
 
 export function movePlayer(array, direction) {
     if (!finished) {
@@ -119,64 +179,72 @@ export function movePlayer(array, direction) {
         //get items nearby
         var itemUp = array[playerPos[0] - 1][playerPos[1]]
         var itemDown = array[playerPos[0] + 1][playerPos[1]]
-
         var itemLeft = array[playerPos[0]][playerPos[1] - 1]
         var itemRight = array[playerPos[0]][playerPos[1] + 1]
 
         //direction provided + check if direction moving in is a space
-        switch (direction) {
-            case "up":
-                if (itemUp === "space" || itemUp === "path") {
-                    console.log("up")
+        //only update canvas if it actually changed something
 
-                    array = walkOverPath(array, playerPos, itemUp)
+        //check for phaze being on and direction provided
+        if (quakeToggled && !(direction == null)) {
+            quakePlayer(array, direction)
+        } else if (phazeToggled && !(direction == null)) {
+            phazePlayer(array, direction)
+        } else {
+            switch (direction) {
+                case "up":
+                    if (itemUp === "finish") {
+                        finishedMaze(array)
+                    } else if (!(itemUp === "wall")) {
+                        array = walkOverPath(array, playerPos, itemUp)
 
-                    array[playerPos[0] - 1][playerPos[1]] = "rainbow"
-                } else if (itemUp === "finish") {
-                    console.log("finished!")
-                    finishedMaze(array)
-                }
-                break;
-            case "down":
-                if (itemDown === "space" || itemDown === "path") {
-                    console.log("down")
+                        array[playerPos[0] - 1][playerPos[1]] = "rainbow"
+                        updateCanvas()
+                    }
+                    break;
+                case "down":
+                    if (itemDown === "finish") {
+                        finishedMaze(array)
+                    } else if (!(itemDown === "wall")) {
+                        array = walkOverPath(array, playerPos, itemDown)
 
-                    array = walkOverPath(array, playerPos, itemDown)
+                        array[playerPos[0] + 1][playerPos[1]] = "rainbow"
+                        updateCanvas()
+                    }
+                    break;
+                case "left":
+                    if (itemLeft === "finish") {
+                        finishedMaze(array)
+                    } else if (!(itemLeft === "wall")) {
+                        array = walkOverPath(array, playerPos, itemLeft)
 
-                    array[playerPos[0] + 1][playerPos[1]] = "rainbow"
-                } else if (itemDown === "finish") {
-                    console.log("finished!")
-                    finishedMaze(array)
-                }
-                break;
-            case "left":
-                if (itemLeft === "space" || itemLeft === "path") {
-                    console.log("left")
+                        array[playerPos[0]][playerPos[1] - 1] = "rainbow"
+                        updateCanvas()
+                    }
+                    break;
+                case "right":
+                    if (itemRight === "finish") {
+                        finishedMaze(array)
+                    } else if (!(itemRight === "wall")) {
+                        array = walkOverPath(array, playerPos, itemRight)
 
-                    array = walkOverPath(array, playerPos, itemLeft)
+                        array[playerPos[0]][playerPos[1] + 1] = "rainbow"
+                        updateCanvas()
+                    }
+                    break;
+                default:
+                    console.error("NO VALID DIRECTION PROVIDED!!!")
+            }
+        }
 
-                    array[playerPos[0]][playerPos[1] - 1] = "rainbow"
-                } else if (itemLeft === "finish") {
-                    console.log("finished!")
-                    finishedMaze(array)
-                }
-                break;
-            case "right":
-                if (itemRight === "space" || itemRight === "path") {
-                    console.log("right")
-
-                    array = walkOverPath(array, playerPos, itemRight)
-
-                    array[playerPos[0]][playerPos[1] + 1] = "rainbow"
-                } else if (itemRight === "finish") {
-                    console.log("finished!")
-                    finishedMaze(array)
-                }
-                break;
-            default:
-                console.error("NO VALID DIRECTION PROVIDED!!!")
+        //if player moved(compare cords), start the timer
+        var playerPosNew = getPlayerPosition(array)
+        if (!(playerPos[0] === playerPosNew[0]) || !(playerPos[1] === playerPosNew[1])) {
+            if (boolRunOnce && !finished) {
+                //start timer
+                setRunningShared(true)
+                boolRunOnce = false
+            }
         }
     }
-
-    updateCanvas()
 }

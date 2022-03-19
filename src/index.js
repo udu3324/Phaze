@@ -7,8 +7,28 @@ import reportWebVitals from './reportWebVitals';
 
 import { createMaze } from './Tool'
 import { createControls } from './Control';
+import { changeGameObjSize, changeSize, gameObjSize, size } from './Config';
+import { getCookie } from './Cookies';
 
-export var maze = createMaze(25)
+export var gameMaze;
+
+//load values from cookies if there are any
+if (getCookie("size") === " ") {
+  gameMaze = createMaze(size)
+} else {
+  gameMaze = createMaze(parseInt(getCookie("size")))
+  changeSize(parseInt(getCookie("size")))
+}
+
+if (getCookie("gameObjSize") === " ") {
+  changeGameObjSize(gameObjSize)
+} else {
+  changeGameObjSize(parseInt(getCookie("gameObjSize")))
+}
+
+export function newMaze() {
+  gameMaze = createMaze(size)
+}
 
 createControls()
 

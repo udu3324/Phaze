@@ -20,10 +20,10 @@ if (getCookie("size") === " ") {
   changeSize(parseInt(getCookie("size")))
 }
 
-if (getCookie("gameObjSize") === " ") {
+if (getCookie("gameObjectSize") === " ") {
   changeGameObjSize(gameObjSize)
 } else {
-  changeGameObjSize(parseInt(getCookie("gameObjSize")))
+  changeGameObjSize(parseInt(getCookie("gameObjectSize")))
 }
 
 export function newMaze() {

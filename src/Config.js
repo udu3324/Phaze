@@ -119,6 +119,9 @@ class Config extends React.Component {
                 <h1>Phaze - Config</h1>
                 <p>Config uses cookies to save the stuff below. Pressing save will also reset the maze.</p>
 
+                <button onClick={this.saveConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faFloppyDisk} />Save</button>
+                <button onClick={this.closeConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faCircleXmark} /><u>C</u>lose</button>
+
                 <h3>Game Stuff</h3>
                 <p>
                     <input onChange={this.handleChangeSize} type="number" id="maze-size-input" min="5" max="5000">
@@ -135,9 +138,6 @@ class Config extends React.Component {
                     <a href="https://reactjs.org/">React</a>, <a href="https://www.npmjs.com/package/amazejs">Amaze</a>, and <a href="https://fontawesome.com/">FontAwesome</a> were used to create Phaze. <br />
                     You can contribute by sending issues, pull requests, forking, and starring the repo here! <a href="https://github.com/udu3324/phaze">udu3324/phaze</a>
                 </p>
-
-                <button onClick={this.saveConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faFloppyDisk} />Save</button>
-                <button onClick={this.closeConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faCircleXmark} /><u>C</u>lose</button>
             </div>
         </div>;
     }

@@ -1,5 +1,5 @@
 :root {
-  --gameObjSize: 24px;
+  --gameObjectSize: 3.2vmin;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
@@ -90,7 +90,7 @@
 }
 
 #game-obj {
-  width: var(--gameObjSize);
+  width: var(--gameObjectSize);
 }
 
 /* Config */

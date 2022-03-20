@@ -7,7 +7,7 @@ import { faCircleXmark, faFloppyDisk, faRulerCombined, faStop } from '@fortaweso
 
 //default values (can be changed by the config)
 export var size = 25
-export var gameObjSize = 28;
+export var gameObjSize = 3.2;
 
 var configUIOpen = false;
 
@@ -37,7 +37,7 @@ export function changeSize(int) {
 
 export function changeGameObjSize(int) {
     gameObjSize = int
-    document.documentElement.style.setProperty('--gameObjSize', gameObjSize + "px");
+    document.documentElement.style.setProperty('--gameObjectSize', gameObjSize + "vmin");
 }
 
 
@@ -81,6 +81,8 @@ class Config extends React.Component {
         }
         setCookie("size", size, 99999)
 
+        var boolReloadPage = false
+
         if (changedGameObjSize === 0) {
             //its not changed
             changedGameObjSize = gameObjSize
@@ -90,12 +92,17 @@ class Config extends React.Component {
         } else {
             //its changed
             gameObjSize = changedGameObjSize
+            boolReloadPage = true
         }
         setCookie("gameObjSize", gameObjSize, 99999)
 
         //change img size
         document.documentElement.style.setProperty('--gameObjSize', gameObjSize + "px");
 
+        //reload page 
+        if (boolReloadPage) {
+            window.location.reload();
+        }
         //reset maze
         resetMaze()
     }
@@ -117,12 +124,6 @@ class Config extends React.Component {
         return <div className="config-div" id="config-div">
             <div className="config-box">
                 <h1>Phaze - Config</h1>
-                <p>Config uses cookies to save the stuff below. Pressing save will also reset the maze.</p>
-
-                <button onClick={this.saveConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faFloppyDisk} />Save</button>
-                <button onClick={this.closeConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faCircleXmark} /><u>C</u>lose</button>
-
-                <h3>Game Stuff</h3>
                 <p>
                     <input onChange={this.handleChangeSize} type="number" id="maze-size-input" min="5" max="5000">
                     </input> Maze Size <FontAwesomeIcon icon={faRulerCombined} />
@@ -132,6 +133,9 @@ class Config extends React.Component {
                     <input onChange={this.handleGameObjChangeSize} type="number" id="game-obj-size-input" min="1" max="500">
                     </input> Game Object Size <FontAwesomeIcon icon={faStop} />
                 </p>
+
+                <button onClick={this.saveConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faFloppyDisk} />Save</button>
+                <button onClick={this.closeConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faCircleXmark} /><u>C</u>lose</button>
 
                 <h3>Credits ❤️</h3>
                 <p>

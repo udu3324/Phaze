@@ -1,14 +1,5 @@
 import React from "react";
 
-import wall from "./assets/wall.png";
-import space from "./assets/space.png";
-import start from "./assets/start.png";
-import finish from "./assets/finish.png";
-import rainbow from "./assets/rainbow.gif";
-import path from "./assets/path.png";
-
-import missing from "./assets/missing.png";
-
 import { gameMaze } from ".";
 
 // https://stackoverflow.com/questions/15164655/generate-html-table-from-2d-javascript-array
@@ -16,35 +7,35 @@ function makeImageTable(myArray) {
     var result = "";
 
     for (var i = 0; i < myArray.length; i++) {
+        result += "<div id=\"" + i + "\">";
         for (var j = 0; j < myArray[i].length; j++) {
             switch (myArray[i][j]) {
                 case "space":
-                    result += "<img src=" + space + ' id="game-obj" alt="space" />';
+                    result += "<div class=\"space\"></div>";
                     break;
                 case "wall":
-                    result += "<img src=" + wall + ' id="game-obj" alt="wall" />';
+                    result += "<div class=\"wall\"></div>";
                     break;
                 case "start":
-                    result += "<img src=" + start + ' id="game-obj" alt="start" />';
+                    result += "<div class=\"start\"></div>";
                     break;
                 case "finish":
-                    result += "<img src=" + finish + ' id="game-obj" alt="finish" />';
+                    result += "<div class=\"finish\"></div>";
                     break;
                 case "path":
-                    result += "<img src=" + path + ' id="game-obj" alt="path" />';
+                    result += "<div class=\"path\"></div>";
                     break;
                 case "rainbow":
-                    result += "<img src=" + rainbow + ' id="game-obj" alt="rainbow" />';
+                    result += "<div class=\"rainbow\"></div>";
                     break;
                 default:
                     //not correctly set img
-                    result += "<img src=" + missing + ' id="game-obj" alt="missing" />';
+                    result += "<div class=\"missing\"></div>";
                     console.error("NO VALID ITEM SET!!!")
             }
         }
-        result += "<br>";
+        result += "</div>";
     }
-
     return result;
 }
 
@@ -61,7 +52,6 @@ class Maze extends React.Component {
 }
 
 export function updateCanvas() {
-    //updates the canvas
     const div = document.getElementById("maze-canvas");
 
     div.innerHTML = makeImageTable(gameMaze);

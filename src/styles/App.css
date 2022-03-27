@@ -89,9 +89,41 @@
   -o-user-select: none;
 }
 
-#game-obj {
+.space, .wall, .start, .finish, .path, .rainbow {
+  height: var(--gameObjectSize);
   width: var(--gameObjectSize);
+  float: left;
 }
+
+.space {
+  background-image: url('../assets/space.png');
+}
+
+.wall {
+  background-image: url('../assets/wall.png');
+}
+
+.start {
+  background-image: url('../assets/start.png');
+}
+
+.finish {
+  background-image: url('../assets/finish.png');
+}
+
+.path {
+  background-image: url('../assets/path.png');
+}
+
+.rainbow {
+  background-image: url('../assets/rainbow.gif');
+  background-repeat:repeat;
+}
+
+.missing {
+  background-image: url('../assets/missing.png');
+}
+
 
 /* Config */
 .config-div {

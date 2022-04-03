@@ -124,6 +124,7 @@ class Config extends React.Component {
         return <div className="config-div" id="config-div">
             <div className="config-box">
                 <h1>Phaze - Config</h1>
+                <a href="https://github.com/udu3324/phaze">udu3324/phaze</a>
                 <p>
                     <input onChange={this.handleChangeSize} type="number" id="maze-size-input" min="5" max="5000">
                     </input> Maze Size <FontAwesomeIcon icon={faRulerCombined} />
@@ -137,14 +138,25 @@ class Config extends React.Component {
                 <button onClick={this.saveConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faFloppyDisk} />Save</button>
                 <button onClick={this.closeConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faCircleXmark} /><u>C</u>lose</button>
 
-                <h3>Credits ❤️</h3>
-                <p>
-                    <a href="https://reactjs.org/">React</a>, <a href="https://www.npmjs.com/package/amazejs">Amaze</a>, and <a href="https://fontawesome.com/">FontAwesome</a> were used to create Phaze. <br />
-                    You can contribute by sending issues, pull requests, forking, and starring the repo here! <a href="https://github.com/udu3324/phaze">udu3324/phaze</a>
-                </p>
             </div>
         </div>;
     }
 }
+
+var ignoreOnceOnOpen = true
+window.addEventListener('click', function (e) {
+    if (document.getElementById("config-div").contains(e.target)) {
+        console.log("yes")
+    } else {
+        // Clicked outside of config when it was open
+        console.log("no")
+        if (configUIOpen && !ignoreOnceOnOpen) {
+            toggleConfig()
+            ignoreOnceOnOpen = true;
+        } else {
+            ignoreOnceOnOpen = false;
+        }
+    }
+});
 
 export default Config;

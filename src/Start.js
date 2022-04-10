@@ -1,6 +1,9 @@
 import React from "react";
 import { getCookie, setCookie } from "./Cookies";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+
 class Start extends React.Component {
     constructor(props) {
         super(props);
@@ -37,19 +40,19 @@ class Start extends React.Component {
         return <div className="start-div" id="start-div">
             <div className="start-box">
                 <button onClick={this.closeStart} id="x">
-                    Close
+                    <FontAwesomeIcon icon={faXmark} />
                 </button>
-                <h1>Welcome!</h1>
+                <h1>Welcome to Phaze!</h1>
                 <p>
-                    Phaze. A maze with extra things to do. Finish it fast as there's a timer!
+                    Phaze is a maze with extra things to do. Finish it as fast as you can!
                     <br />
                     <br />
-                    PC users move by pressing WASD or arrow keys.
+                    PC - Move with WASD or Arrow Keys
                     <br />
-                    Mobile users move by swiping or pressing the buttons.
+                    Mobile - Move by swiping or pressing controls
                     <br />
                     <br />
-                    Quake - Allows you to move through a wall
+                    Quake - Allows you to break and move through a wall
                     <br />
                     <img src="https://camo.githubusercontent.com/3a730420d30eee5caf53211f32cb4935e6b1b206f0b43dce0e47e2f54e35db90/68747470733a2f2f63646e2e646973636f72646170702e636f6d2f6174746163686d656e74732f3735313933353134393537383338373435362f3935343836303630323534353830373338302f756e6b6e6f776e2e706e67" alt="quake"></img>
                     <br />

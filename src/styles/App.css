@@ -20,6 +20,23 @@
   color: white;
 }
 
+/* link css */
+a:link {
+  color: #00d9ff;
+}
+
+a:visited {
+  color: #00d9ff;
+}
+
+a:hover {
+  color: #00d9ff;
+}
+
+a:active {
+  color: #00d9ff;
+}
+
 /* Up Div Stuff*/
 
 #left, #middle, #right {
@@ -128,7 +145,7 @@
 /* Config */
 .config-div {
   display: none;
-  margin-top: 20vh;
+  margin-top: 30vh;
   position: fixed;
   width: 100%;
   justify-content: center;
@@ -140,20 +157,52 @@
   box-shadow: 0px 0px 17px 1px #1d1f26;
   background: #282c34;
   padding: 18px;
-  width: 85%;
+  width: 60vmin;
   border-radius: 5px;
   margin: auto;
   text-align: left;
   font-size: 18px;
-  line-height: 23px;
+  position: relative;
 }
 
 input[type="number" i] {
-  width: 48px;
-  border: 2px solid #000000;
+  font-family: 'JetBrains Mono', monospace;
+  width: 45px;
+  text-align: center;
+  border: 2px solid #ffffff;
   margin-bottom: 4px;
-  background-color: #4c515c;
-  border-radius: 7px;
+  background-color: #323740;
+  color: #ffffff;
+  border-radius: 3px 0px 0px 3px;
+  
+}
+
+button.conf-btn {
+  font-family: 'JetBrains Mono', monospace;
+  color: #ffffff;
+  background: #323740;
+  border-color: #ffffff; 
+  border-style: solid;
+}
+
+button.conf-btn:hover {
+  background: #21242b;
+}
+
+button.conf-btn:active {
+  background: #1b1d22;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 /* Start Stuff */
@@ -181,14 +230,18 @@ input[type="number" i] {
 }
 
 #x {
- position: absolute;
- background: #424956;
- color: white;
- top: -10px;
- right: -10px;
- border-radius: 30px;
- font-size: 30px;
- font-family: inherit;
+  position: absolute;
+  background: #363b46;
+  color: white;
+  top: -10px;
+  right: -10px;
+  border-radius: 44px;
+  font-size: 30px;
+  font-family: inherit;
+  border-style: solid;
+  border-color: #1d2026;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 /* Remove Focus */

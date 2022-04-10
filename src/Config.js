@@ -3,16 +3,16 @@ import { setCookie } from "./Cookies";
 import { resetMaze } from "./Tool";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleXmark, faFloppyDisk, faRulerCombined, faStop } from '@fortawesome/free-solid-svg-icons'
+import { faArrowDown, faArrowUp, faCircleXmark, faFloppyDisk, faRulerCombined, faStop } from '@fortawesome/free-solid-svg-icons'
 
 //default values (can be changed by the config)
 export var size = 25
-export var gameObjSize = 3.2;
+export var gameObjectSize = 3.2;
 
 var configUIOpen = false;
 
 var changedSize = 0;
-var changedGameObjSize = 0;
+var changedGameObjectSize = 0;
 
 export function toggleConfig() {
     var configDiv = document.getElementById('config-div');
@@ -35,9 +35,9 @@ export function changeSize(int) {
     size = int
 }
 
-export function changeGameObjSize(int) {
-    gameObjSize = int
-    document.documentElement.style.setProperty('--gameObjectSize', gameObjSize + "vmin");
+export function changeGameObjectSize(int) {
+    gameObjectSize = int
+    document.documentElement.style.setProperty('--gameObjectSize', gameObjectSize + "vmin");
 }
 
 
@@ -50,6 +50,33 @@ class Config extends React.Component {
 
         this.handleChangeSize = this.handleChangeSize.bind(this);
         this.handleGameObjChangeSize = this.handleGameObjChangeSize.bind(this);
+
+        this.gameObjectSizeUp = this.gameObjectSizeUp.bind(this);
+        this.gameObjectSizeDown = this.gameObjectSizeDown.bind(this);
+
+        this.mazeSizeUp = this.mazeSizeUp.bind(this);
+        this.mazeSizeDown = this.mazeSizeDown.bind(this);
+    }
+
+    mazeSizeUp() {
+        var element = document.getElementById("maze-size-input");
+        var changedVal = parseInt(element.value) + 2
+
+        console.log("size changed to: " + changedVal)
+        changedSize = changedVal;
+        element.value = changedVal
+    }
+
+    mazeSizeDown() {
+        var element = document.getElementById("maze-size-input");
+        var changedVal = parseInt(element.value) - 2
+
+        //if more than or equal to 5 (stops glitches)
+        if (changedVal >= 5) {
+            console.log("size changed to: " + changedVal)
+            changedSize = changedVal;
+            element.value = changedVal
+        }
     }
 
     handleChangeSize(event) {
@@ -57,15 +84,35 @@ class Config extends React.Component {
         changedSize = event.target.value;
     }
 
+    gameObjectSizeUp() {
+        var element = document.getElementById("game-obj-size-input");
+        var changedVal = (parseFloat(element.value) + 0.1).toFixed(1)
+
+        console.log("game obj size changed to: " + changedVal)
+        changedGameObjectSize = changedVal;
+        element.value = changedVal
+    }
+
+    gameObjectSizeDown() {
+        var element = document.getElementById("game-obj-size-input");
+        var changedVal = (parseFloat(element.value) - 0.1).toFixed(1)
+
+        if (changedVal >= 0.1) {
+            console.log("game obj size changed to: " + changedVal)
+            changedGameObjectSize = changedVal;
+            element.value = changedVal
+        }
+    }
+
     handleGameObjChangeSize(event) {
         console.log("game obj size changed to: " + event.target.value)
-        changedGameObjSize = event.target.value;
+        changedGameObjectSize = event.target.value;
     }
 
     saveConfig() {
         console.log("saving config \n" +
             "size = " + changedSize + "\n" +
-            "gameObjSize = " + changedGameObjSize)
+            "gameObjectSize = " + changedGameObjectSize)
 
         //fallback for if size or gameObj size is set to less than recommended sizes
         //set cookies if they have been altered
@@ -81,28 +128,21 @@ class Config extends React.Component {
         }
         setCookie("size", size, 99999)
 
-        var boolReloadPage = false
-
-        if (changedGameObjSize === 0) {
+        if (changedGameObjectSize === 0) {
             //its not changed
-            changedGameObjSize = gameObjSize
-        } else if (changedGameObjSize < 1) {
+            changedGameObjectSize = gameObjectSize
+        } else if (changedGameObjectSize < 1) {
             //its glitched
-            changedGameObjSize = 1
+            changedGameObjectSize = 1
         } else {
             //its changed
-            gameObjSize = changedGameObjSize
-            boolReloadPage = true
+            gameObjectSize = changedGameObjectSize
         }
-        setCookie("gameObjSize", gameObjSize, 99999)
+        setCookie("gameObjectSize", gameObjectSize, 99999)
 
         //change img size
-        document.documentElement.style.setProperty('--gameObjSize', gameObjSize + "px");
+        document.documentElement.style.setProperty('--gameObjectSize', gameObjectSize + "vmin");
 
-        //reload page 
-        if (boolReloadPage) {
-            window.location.reload();
-        }
         //reset maze
         resetMaze()
     }
@@ -114,25 +154,32 @@ class Config extends React.Component {
     componentDidMount() {
         //set input values from cookies/default
         var sizeInput = document.getElementById('maze-size-input')
-        var gameObjSizeInput = document.getElementById('game-obj-size-input')
+        var gameObjectSizeInput = document.getElementById('game-obj-size-input')
 
         sizeInput.value = size
-        gameObjSizeInput.value = gameObjSize
+        gameObjectSizeInput.value = gameObjectSize
     }
 
     render() {
         return <div className="config-div" id="config-div">
             <div className="config-box">
                 <h1>Phaze - Config</h1>
-                <a href="https://github.com/udu3324/phaze">udu3324/phaze</a>
+                <a href="https://github.com/udu3324/phaze" target="_blank" rel="noopener noreferrer">udu3324/phaze</a>
                 <p>
-                    <input onChange={this.handleChangeSize} type="number" id="maze-size-input" min="5" max="5000">
-                    </input> Maze Size <FontAwesomeIcon icon={faRulerCombined} />
+                    Maze Size <FontAwesomeIcon icon={faRulerCombined} />
+                    <br />
+                    <input onChange={this.handleChangeSize} type="number" id="maze-size-input" min="5" max="5000" />
+                    <button onClick={this.mazeSizeUp} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowUp} /></button>
+                    <button style={{ borderRadius: '0px 3px 3px 0px' }} onClick={this.mazeSizeDown} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowDown} /></button>
                 </p>
 
                 <p>
-                    <input onChange={this.handleGameObjChangeSize} type="number" id="game-obj-size-input" min="1" max="500">
-                    </input> Game Object Size <FontAwesomeIcon icon={faStop} />
+                    Game Object Size <FontAwesomeIcon icon={faStop} />
+                    <br />
+                    <input onChange={this.handleGameObjChangeSize} type="number" id="game-obj-size-input" min="1" max="500" />
+                    <button onClick={this.gameObjectSizeUp} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowUp} /></button>
+                    <button style={{ borderRadius: '0px 3px 3px 0px' }} onClick={this.gameObjectSizeDown} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowDown} /></button>
+
                 </p>
 
                 <button onClick={this.saveConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faFloppyDisk} />Save</button>
@@ -143,19 +190,14 @@ class Config extends React.Component {
     }
 }
 
-var ignoreOnceOnOpen = true
 window.addEventListener('click', function (e) {
-    if (document.getElementById("config-div").contains(e.target)) {
-        console.log("yes")
-    } else {
-        // Clicked outside of config when it was open
-        console.log("no")
-        if (configUIOpen && !ignoreOnceOnOpen) {
-            toggleConfig()
-            ignoreOnceOnOpen = true;
-        } else {
-            ignoreOnceOnOpen = false;
-        }
+    //check for hovering out of config div, if config ui is open, and if hovering on config button
+    if (!document.getElementById("config-div").contains(e.target) && configUIOpen && !document.getElementById("right").matches(':hover')) {
+        toggleConfig()
+        console.log("1")
+    }
+    if (configUIOpen && document.getElementById("config-div").contains(e.target)) {
+        toggleConfig()
     }
 });
 

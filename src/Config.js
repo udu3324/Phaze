@@ -162,7 +162,7 @@ class Config extends React.Component {
 
     render() {
         return <div className="config-div" id="config-div">
-            <div className="config-box">
+            <div className="config-box" id="config-box">
                 <h1>Phaze - Config</h1>
                 <a href="https://github.com/udu3324/phaze" target="_blank" rel="noopener noreferrer">udu3324/phaze</a>
                 <p>
@@ -192,12 +192,9 @@ class Config extends React.Component {
 
 window.addEventListener('click', function (e) {
     //check for hovering out of config div, if config ui is open, and if hovering on config button
-    if (!document.getElementById("config-div").contains(e.target) && configUIOpen && !document.getElementById("right").matches(':hover')) {
+    if (!document.getElementById("config-box").contains(e.target) && configUIOpen && !document.getElementById("right").matches(':hover')) {
         toggleConfig()
         console.log("1")
-    }
-    if (configUIOpen && document.getElementById("config-div").contains(e.target)) {
-        toggleConfig()
     }
 });
 

@@ -1,4 +1,5 @@
 import { gameMaze } from "."
+
 import { toggleConfig } from "./Config"
 import { togglePhaze } from "./Phaze"
 import { toggleQuake } from "./Quake"

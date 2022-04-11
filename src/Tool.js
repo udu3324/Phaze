@@ -1,5 +1,6 @@
 import maze from 'amazejs';
 import { newMaze } from '.';
+import { shake } from './Animate';
 import { updateCanvas } from './Maze';
 import { phazePlayer, phazeToggled, resetPhaze, togglePhaze } from './Phaze';
 import { quakePlayer, quakeToggled, resetQuake, toggleQuake } from './Quake';
@@ -200,6 +201,7 @@ export function movePlayer(array, direction) {
 
                         array[playerPos[0] - 1][playerPos[1]] = "rainbow"
                         updateCanvas()
+                        shake(80, "up")
                     }
                     break;
                 case "down":
@@ -210,6 +212,7 @@ export function movePlayer(array, direction) {
 
                         array[playerPos[0] + 1][playerPos[1]] = "rainbow"
                         updateCanvas()
+                        shake(80, "down")
                     }
                     break;
                 case "left":
@@ -220,6 +223,7 @@ export function movePlayer(array, direction) {
 
                         array[playerPos[0]][playerPos[1] - 1] = "rainbow"
                         updateCanvas()
+                        shake(80, "left")
                     }
                     break;
                 case "right":
@@ -230,6 +234,7 @@ export function movePlayer(array, direction) {
 
                         array[playerPos[0]][playerPos[1] + 1] = "rainbow"
                         updateCanvas()
+                        shake(80, "right")
                     }
                     break;
                 default:

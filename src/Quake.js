@@ -1,3 +1,4 @@
+import { shake } from "./Animate";
 import { updateCanvas } from "./Maze";
 import { phazeToggled, togglePhaze } from "./Phaze";
 import { getPlayerPosition, movePlayer, walkOverPath } from "./Tool";
@@ -77,6 +78,7 @@ export function quakePlayer(array, direction) {
                         removeAQuake()
                         toggleQuake()
                         updateCanvas()
+                        shake(130)
                     } else if (!(itemUp === "wall")) {
                         toggleQuake()
                         movePlayer(array, direction)
@@ -92,6 +94,7 @@ export function quakePlayer(array, direction) {
                         removeAQuake()
                         toggleQuake()
                         updateCanvas()
+                        shake(130)
                     } else if (!(itemDown === "wall")) {
                         toggleQuake()
                         movePlayer(array, direction)
@@ -110,6 +113,7 @@ export function quakePlayer(array, direction) {
                         removeAQuake()
                         toggleQuake()
                         updateCanvas()
+                        shake(130)
                     } else if (!(itemLeft === "wall")) {
                         toggleQuake()
                         movePlayer(array, direction)
@@ -126,6 +130,7 @@ export function quakePlayer(array, direction) {
                         removeAQuake()
                         toggleQuake()
                         updateCanvas()
+                        shake(130)
                     } else if (!(itemRight === "wall")) {
                         toggleQuake()
                         movePlayer(array, direction)

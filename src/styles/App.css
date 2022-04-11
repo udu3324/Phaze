@@ -20,6 +20,64 @@
   color: white;
 }
 
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@keyframes shake-up {
+  0% { transform: translate(0px, 0px); }
+  50% { transform: translate(0px, -4px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+@keyframes shake-down {
+  0% { transform: translate(0px, 0px); }
+  50% { transform: translate(0px, 4px); }
+  100% { transform: translate(0px, 0px); }
+}
+@keyframes shake-left {
+  0% { transform: translate(0px, 0px); }
+  50% { transform: translate(-4px, 0px); }
+  100% { transform: translate(0px, 0px); }
+}
+@keyframes shake-right {
+  0% { transform: translate(0px, 0px); }
+  50% { transform: translate(4px, 0px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+@keyframes shake-up-hard {
+  0% { transform: translate(0px, 0px); }
+  50% { transform: translate(0px, -14px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+@keyframes shake-down-hard {
+  0% { transform: translate(0px, 0px); }
+  50% { transform: translate(0px, 14px); }
+  100% { transform: translate(0px, 0px); }
+}
+@keyframes shake-left-hard {
+  0% { transform: translate(0px, 0px); }
+  50% { transform: translate(-14px, 0px); }
+  100% { transform: translate(0px, 0px); }
+}
+@keyframes shake-right-hard {
+  0% { transform: translate(0px, 0px); }
+  50% { transform: translate(14px, 0px); }
+  100% { transform: translate(0px, 0px); }
+}
+
 /* link css */
 a:link {
   color: #00d9ff;
@@ -145,24 +203,21 @@ a:active {
 /* Config */
 .config-div {
   display: none;
-  margin-top: 30vh;
-  position: fixed;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
 }
 
 .config-box {
+  width: 41vmin;
   color: #ffffff;
   box-shadow: 0px 0px 17px 1px #1d1f26;
   background: #282c34;
   padding: 18px;
-  width: 60vmin;
   border-radius: 5px;
-  margin: auto;
   text-align: left;
   font-size: 18px;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 input[type="number" i] {
@@ -208,11 +263,6 @@ input[type=number] {
 /* Start Stuff */
 .start-div {
   display: none;
-  margin-top: 20vh;
-  position: fixed;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
 }
 
 .start-box {
@@ -220,13 +270,15 @@ input[type=number] {
   box-shadow: 0px 0px 17px 1px #1d1f26;
   background: #282c34;
   padding: 18px;
-  width: 60vmin;
   border-radius: 5px;
-  margin: auto;
   text-align: left;
   font-size: 18px;
-  line-height: 23px;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
 }
 
 #x {

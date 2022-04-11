@@ -1,3 +1,4 @@
+import { shakeHard } from "./Animate";
 import { updateCanvas } from "./Maze";
 import { quakeToggled, toggleQuake } from "./Quake";
 import { finishedMaze, getPlayerPosition, movePlayer, walkOverPath } from "./Tool";
@@ -109,6 +110,7 @@ export function phazePlayer(array, direction) {
 
                     removeAPhaze()
                     updateCanvas()
+                    shakeHard(80, "up")
                 }
                 break;
             case "down":
@@ -152,6 +154,7 @@ export function phazePlayer(array, direction) {
 
                     removeAPhaze()
                     updateCanvas()
+                    shakeHard(80, "down")
                 }
                 break;
             case "left":
@@ -195,6 +198,7 @@ export function phazePlayer(array, direction) {
 
                     removeAPhaze()
                     updateCanvas()
+                    shakeHard(80, "left")
                 }
                 break;
             case "right":
@@ -238,6 +242,7 @@ export function phazePlayer(array, direction) {
 
                     removeAPhaze()
                     updateCanvas()
+                    shakeHard(80, "right")
                 }
                 break;
             default:

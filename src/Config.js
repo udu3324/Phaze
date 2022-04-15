@@ -163,7 +163,7 @@ class Config extends React.Component {
     render() {
         return <div className="config-div" id="config-div">
             <div className="config-box" id="config-box">
-                <h1>Phaze - Config</h1>
+                <h1>Config</h1>
                 <a href="https://github.com/udu3324/phaze" target="_blank" rel="noopener noreferrer">udu3324/phaze</a>
                 <p>
                     Maze Size <FontAwesomeIcon icon={faRulerCombined} />

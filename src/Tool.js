@@ -138,6 +138,7 @@ export function redoMaze(array) {
 
     resetPhaze()
     resetQuake()
+    boolRunOnce = true
     updateCanvas()
 }
 

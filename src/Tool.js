@@ -119,6 +119,15 @@ export function resetMaze() {
 
     resetPhaze()
     resetQuake()
+    boolRunOnce = true
+    //toggle all tools off
+    if (phazeToggled) {
+        togglePhaze()
+    }
+    if (quakeToggled) {
+        toggleQuake()
+    }
+    
     updateCanvas()
 }
 

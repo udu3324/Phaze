@@ -100,6 +100,7 @@ export function phazePlayer(array, direction) {
 
                         //check if left or right is not a wall
                         if (!(itemLeft === "wall") || !(itemRight === "wall")) {
+                            array[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
                             break
                         }
 
@@ -145,6 +146,7 @@ export function phazePlayer(array, direction) {
 
                         //check if left or right is not a wall
                         if (!(itemLeft === "wall") || !(itemRight === "wall")) {
+                            array[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
                             break
                         }
 
@@ -190,6 +192,7 @@ export function phazePlayer(array, direction) {
 
                         //check if up or down is not a wall
                         if (!(itemUp === "wall") || !(itemDown === "wall")) {
+                            array[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
                             break
                         }
 
@@ -235,6 +238,7 @@ export function phazePlayer(array, direction) {
 
                         //check if up or down is not a wall
                         if (!(itemUp === "wall") || !(itemDown === "wall")) {
+                            array[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
                             break
                         }
 

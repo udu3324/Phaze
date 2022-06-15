@@ -47,6 +47,9 @@ class Start extends React.Component {
                     Phaze is a maze with extra things to do. Finish it as fast as you can!
                     <br />
                     <br />
+                    You start as a red block at the bottom left of the maze.
+                    <br />
+                    <br />
                     PC - Move with WASD or Arrow Keys
                     <br />
                     Mobile - Move by swiping or pressing controls

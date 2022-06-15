@@ -44,23 +44,16 @@ class Down extends React.Component {
 
     render() {
         return <div className="down-div">
-            <div id="down">
-                <button onClick={this.up} aria-label="up" id="up-btn" className="down-btn" type="button"><FontAwesomeIcon icon={faCircleArrowUp} /></button>
+            <div>
+                <button onClick={this.up} aria-label="up" id="up-btn" className="control-btn vertical" type="button"><FontAwesomeIcon icon={faCircleArrowUp} /></button><br />
+                <button onClick={this.left} aria-label="left" id="left-btn" className="control-btn horizontal" type="button"><FontAwesomeIcon icon={faCircleArrowLeft} /></button>
+                <button onClick={this.down} aria-label="down" id="down-btn" className="control-btn vertical" type="button"><FontAwesomeIcon icon={faCircleArrowDown} /></button>
+                <button onClick={this.right} aria-label="right" id="right-btn" className="control-btn horizontal" ype="button"><FontAwesomeIcon icon={faCircleArrowRight} /></button>
             </div>
-            <div id="down">
-                <button onClick={this.down} aria-label="down" id="down-btn" className="down-btn" type="button"><FontAwesomeIcon icon={faCircleArrowDown} /></button>
-            </div>
-            <div id="down">
+            <div id="tools">
                 <button onClick={this.quake} id="quake-btn" className="down-btn" type="button"><FontAwesomeIcon icon={faMeteor} /><u>Q</u>uake({defaultNumberOfQuakes})</button>
-            </div>
-            <div id="down">
+                
                 <button onClick={this.phaze} id="phaze-btn" className="down-btn" type="button"><FontAwesomeIcon icon={faPersonRunning} />Phaz<u>e</u>({defaultNumberOfPhazes})</button>
-            </div>
-            <div id="down">
-                <button onClick={this.left} aria-label="left" id="left-btn" className="down-btn" type="button"><FontAwesomeIcon icon={faCircleArrowLeft} /></button>
-            </div>
-            <div id="down">
-                <button onClick={this.right} aria-label="right" id="right-btn" className="down-btn" type="button"><FontAwesomeIcon icon={faCircleArrowRight} /></button>
             </div>
         </div>;
     }

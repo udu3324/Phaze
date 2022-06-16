@@ -1,3 +1,4 @@
+import { gameMaze } from ".";
 import { shake } from "./Animate";
 import { updateCanvas } from "./Maze";
 import { phazeToggled, togglePhaze } from "./Phaze";
@@ -5,7 +6,7 @@ import { getPlayerPosition, movePlayer, walkOverPath } from "./Tool";
 
 export var quakeToggled = false
 export const defaultNumberOfQuakes = 3
-var numberOfQuakes = defaultNumberOfQuakes
+export var numberOfQuakes = defaultNumberOfQuakes
 
 export function resetQuake() {
     numberOfQuakes = defaultNumberOfQuakes
@@ -52,18 +53,18 @@ export function removeAQuake() {
     setButtonStatus(numberOfQuakes, true)
 }
 
-export function quakePlayer(array, direction) {
+export function quakePlayer(direction) {
     //check if Quakes is more than 0
     if (!(numberOfQuakes < 1)) {
 
         //get player pos
-        var playerPos = getPlayerPosition(array)
+        var playerPos = getPlayerPosition()
 
         //get items nearby
-        var itemUp = array[playerPos[0] - 1][playerPos[1]]
-        var itemDown = array[playerPos[0] + 1][playerPos[1]]
-        var itemLeft = array[playerPos[0]][playerPos[1] - 1]
-        var itemRight = array[playerPos[0]][playerPos[1] + 1]
+        var itemUp = gameMaze[playerPos[0] - 1][playerPos[1]]
+        var itemDown = gameMaze[playerPos[0] + 1][playerPos[1]]
+        var itemLeft = gameMaze[playerPos[0]][playerPos[1] - 1]
+        var itemRight = gameMaze[playerPos[0]][playerPos[1] + 1]
 
         //direction provided + check if direction moving in is a space
         //only update canvas if it actually changed something
@@ -71,9 +72,9 @@ export function quakePlayer(array, direction) {
             case "up":
                 if (itemUp === "wall") {
                     if (!((playerPos[0] - 1) === 0)) {
-                        array = walkOverPath(array, playerPos, itemUp)
+                        walkOverPath(playerPos, itemUp)
 
-                        array[playerPos[0] - 1][playerPos[1]] = "rainbow"
+                        gameMaze[playerPos[0] - 1][playerPos[1]] = "rainbow"
 
                         removeAQuake()
                         toggleQuake()
@@ -81,23 +82,23 @@ export function quakePlayer(array, direction) {
                         shake(130)
                     } else if (!(itemUp === "wall")) {
                         toggleQuake()
-                        movePlayer(array, direction)
+                        movePlayer(direction)
                     }
                 }
                 break;
             case "down":
                 if (itemDown === "wall") {
                     if (!((playerPos[0] + 1) === 24)) {
-                        array = walkOverPath(array, playerPos, itemDown)
+                        walkOverPath(playerPos, itemDown)
 
-                        array[playerPos[0] + 1][playerPos[1]] = "rainbow"
+                        gameMaze[playerPos[0] + 1][playerPos[1]] = "rainbow"
                         removeAQuake()
                         toggleQuake()
                         updateCanvas()
                         shake(130)
                     } else if (!(itemDown === "wall")) {
                         toggleQuake()
-                        movePlayer(array, direction)
+                        movePlayer(direction)
                     }
                 }
                 break;
@@ -106,9 +107,9 @@ export function quakePlayer(array, direction) {
                     if (!((playerPos[1] - 1) === 0)) {
                         console.log(playerPos[1] - 1)
                         console.log(playerPos[0])
-                        array = walkOverPath(array, playerPos, itemLeft)
+                        walkOverPath(playerPos, itemLeft)
 
-                        array[playerPos[0]][playerPos[1] - 1] = "rainbow"
+                        gameMaze[playerPos[0]][playerPos[1] - 1] = "rainbow"
 
                         removeAQuake()
                         toggleQuake()
@@ -116,16 +117,16 @@ export function quakePlayer(array, direction) {
                         shake(130)
                     } else if (!(itemLeft === "wall")) {
                         toggleQuake()
-                        movePlayer(array, direction)
+                        movePlayer(direction)
                     }
                 }
                 break;
             case "right":
                 if (itemRight === "wall") {
                     if (!((playerPos[1] + 1) === 24)) {
-                        array = walkOverPath(array, playerPos, itemRight)
+                        walkOverPath(playerPos, itemRight)
 
-                        array[playerPos[0]][playerPos[1] + 1] = "rainbow"
+                        gameMaze[playerPos[0]][playerPos[1] + 1] = "rainbow"
 
                         removeAQuake()
                         toggleQuake()
@@ -133,7 +134,7 @@ export function quakePlayer(array, direction) {
                         shake(130)
                     } else if (!(itemRight === "wall")) {
                         toggleQuake()
-                        movePlayer(array, direction)
+                        movePlayer(direction)
                     }
                 }
                 break;
@@ -142,6 +143,6 @@ export function quakePlayer(array, direction) {
         }
     } else {
         toggleQuake()
-        movePlayer(array, direction)
+        movePlayer(direction)
     }
 }

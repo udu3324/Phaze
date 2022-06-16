@@ -7,11 +7,16 @@ import reportWebVitals from './reportWebVitals';
 
 import { createMaze } from './Tool'
 import { createControls } from './Control';
-import { changeGameObjectSize, changeSize, gameObjectSize, size } from './Config';
+import { changeGameObjectSize, changeGameTime, changeSize, gameObjectSize, gameTime, size } from './Config';
 import { getCookie } from './Cookies';
 export var gameMaze;
 
-//load values from cookies if there are any
+//load values from cookies if there are any\
+if (getCookie("gameTime") === " ") {
+  changeGameTime(gameTime)
+} else {
+  changeGameTime(parseInt(getCookie("gameTime")))
+}
 if (getCookie("size") === " ") {
   gameMaze = createMaze(size)
 } else {

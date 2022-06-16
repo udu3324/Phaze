@@ -1,3 +1,4 @@
+import { gameMaze } from ".";
 import { shakeHard } from "./Animate";
 import { updateCanvas } from "./Maze";
 import { quakeToggled, toggleQuake } from "./Quake";
@@ -5,7 +6,7 @@ import { finishedMaze, getPlayerPosition, movePlayer, walkOverPath } from "./Too
 
 export var phazeToggled = false
 export const defaultNumberOfPhazes = 10
-var numberOfPhazes = defaultNumberOfPhazes
+export var numberOfPhazes = defaultNumberOfPhazes
 
 export function resetPhaze() {
     numberOfPhazes = defaultNumberOfPhazes
@@ -51,20 +52,19 @@ export function removeAPhaze() {
     setButtonStatus(numberOfPhazes, true)
 }
 
-export function phazePlayer(array, direction) {
+export function phazePlayer(direction) {
     //check if phazes is more than 0
     if (!(numberOfPhazes < 1)) {
 
         //get player pos
-        var originalPlayerPos = getPlayerPosition(array)
+        var originalPlayerPos = getPlayerPosition()
         var playerPosGhost = originalPlayerPos
 
-
         //get items nearby
-        var itemUp = array[playerPosGhost[0] - 1][playerPosGhost[1]]
-        var itemDown = array[playerPosGhost[0] + 1][playerPosGhost[1]]
-        var itemLeft = array[playerPosGhost[0]][playerPosGhost[1] - 1]
-        var itemRight = array[playerPosGhost[0]][playerPosGhost[1] + 1]
+        var itemUp = gameMaze[playerPosGhost[0] - 1][playerPosGhost[1]]
+        var itemDown = gameMaze[playerPosGhost[0] + 1][playerPosGhost[1]]
+        var itemLeft = gameMaze[playerPosGhost[0]][playerPosGhost[1] - 1]
+        var itemRight = gameMaze[playerPosGhost[0]][playerPosGhost[1] + 1]
 
         //direction provided + check if direction moving in is a space
         //only update canvas if it actually changed something
@@ -72,40 +72,40 @@ export function phazePlayer(array, direction) {
             case "up":
                 if (itemUp === "finish") {
                     removeAPhaze()
-                    finishedMaze(array)
+                    finishedMaze()
                 } else if (!(itemUp === "wall")) {
-                    array = walkOverPath(array, playerPosGhost, itemUp)
-                    for (let i = 0; i < array.length - 2; i++) {
+                    walkOverPath(playerPosGhost, itemUp)
+                    for (let i = 0; i < gameMaze.length - 2; i++) {
                         //move up one since there is a space
                         playerPosGhost[0] = playerPosGhost[0] - 1
 
                         //get new nearby items
-                        itemUp = array[playerPosGhost[0] - 1][playerPosGhost[1]]
+                        itemUp = gameMaze[playerPosGhost[0] - 1][playerPosGhost[1]]
 
-                        itemLeft = array[playerPosGhost[0]][playerPosGhost[1] - 1]
-                        itemRight = array[playerPosGhost[0]][playerPosGhost[1] + 1]
+                        itemLeft = gameMaze[playerPosGhost[0]][playerPosGhost[1] - 1]
+                        itemRight = gameMaze[playerPosGhost[0]][playerPosGhost[1] + 1]
 
                         //check if item is finish
                         if (itemUp === "finish") {
-                            array = walkOverPath(array, playerPosGhost, itemUp)
-                            finishedMaze(array)
+                            walkOverPath(playerPosGhost, itemUp)
+                            finishedMaze()
                             break
                         }
 
                         //check if item in front is a wall
                         if (itemUp === "wall") {
-                            array[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
+                            gameMaze[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
                             break
                         }
 
                         //check if left or right is not a wall
                         if (!(itemLeft === "wall") || !(itemRight === "wall")) {
-                            array[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
+                            gameMaze[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
                             break
                         }
 
-                        array = walkOverPath(array, playerPosGhost, itemUp)
-                        array[playerPosGhost[0] - 1][playerPosGhost[1]] = "rainbow"
+                        walkOverPath(playerPosGhost, itemUp)
+                        gameMaze[playerPosGhost[0] - 1][playerPosGhost[1]] = "rainbow"
 
                         //else it would continue to loop
                     }
@@ -118,40 +118,40 @@ export function phazePlayer(array, direction) {
             case "down":
                 if (itemDown === "finish") {
                     removeAPhaze()
-                    finishedMaze(array)
+                    finishedMaze()
                 } else if (!(itemDown === "wall")) {
-                    array = walkOverPath(array, playerPosGhost, itemDown)
-                    for (let i = 0; i < array.length - 2; i++) {
+                    walkOverPath(playerPosGhost, itemDown)
+                    for (let i = 0; i < gameMaze.length - 2; i++) {
                         //move up one since there is a space
                         playerPosGhost[0] = playerPosGhost[0] + 1
 
                         //get new nearby items
-                        itemDown = array[playerPosGhost[0] + 1][playerPosGhost[1]]
+                        itemDown = gameMaze[playerPosGhost[0] + 1][playerPosGhost[1]]
 
-                        itemLeft = array[playerPosGhost[0]][playerPosGhost[1] - 1]
-                        itemRight = array[playerPosGhost[0]][playerPosGhost[1] + 1]
+                        itemLeft = gameMaze[playerPosGhost[0]][playerPosGhost[1] - 1]
+                        itemRight = gameMaze[playerPosGhost[0]][playerPosGhost[1] + 1]
 
                         //check if item is finish
                         if (itemDown === "finish") {
-                            array = walkOverPath(array, playerPosGhost, itemDown)
-                            finishedMaze(array)
+                            walkOverPath(playerPosGhost, itemDown)
+                            finishedMaze()
                             break
                         }
 
                         //check if item behind is a wall
                         if (itemDown === "wall") {
-                            array[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
+                            gameMaze[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
                             break
                         }
 
                         //check if left or right is not a wall
                         if (!(itemLeft === "wall") || !(itemRight === "wall")) {
-                            array[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
+                            gameMaze[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
                             break
                         }
 
-                        array = walkOverPath(array, playerPosGhost, itemDown)
-                        array[playerPosGhost[0] + 1][playerPosGhost[1]] = "rainbow"
+                        walkOverPath(playerPosGhost, itemDown)
+                        gameMaze[playerPosGhost[0] + 1][playerPosGhost[1]] = "rainbow"
 
                         //else it would continue to loop
                     }
@@ -164,40 +164,40 @@ export function phazePlayer(array, direction) {
             case "left":
                 if (itemLeft === "finish") {
                     removeAPhaze()
-                    finishedMaze(array)
+                    finishedMaze()
                 } else if (!(itemLeft === "wall")) {
-                    array = walkOverPath(array, playerPosGhost, itemLeft)
-                    for (let i = 0; i < array.length - 2; i++) {
+                    walkOverPath(playerPosGhost, itemLeft)
+                    for (let i = 0; i < gameMaze.length - 2; i++) {
                         //move up one since there is a space
                         playerPosGhost[1] = playerPosGhost[1] - 1
 
                         //get new nearby items
-                        itemLeft = array[playerPosGhost[0]][playerPosGhost[1] - 1]
+                        itemLeft = gameMaze[playerPosGhost[0]][playerPosGhost[1] - 1]
 
-                        itemUp = array[playerPosGhost[0] - 1][playerPosGhost[1]]
-                        itemDown = array[playerPosGhost[0] + 1][playerPosGhost[1]]
+                        itemUp = gameMaze[playerPosGhost[0] - 1][playerPosGhost[1]]
+                        itemDown = gameMaze[playerPosGhost[0] + 1][playerPosGhost[1]]
 
                         //check if item is finish
                         if (itemLeft === "finish") {
-                            array = walkOverPath(array, playerPosGhost, itemLeft)
-                            finishedMaze(array)
+                            walkOverPath(playerPosGhost, itemLeft)
+                            finishedMaze()
                             break
                         }
 
                         //check if item in front is a wall
                         if (itemLeft === "wall") {
-                            array[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
+                            gameMaze[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
                             break
                         }
 
                         //check if up or down is not a wall
                         if (!(itemUp === "wall") || !(itemDown === "wall")) {
-                            array[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
+                            gameMaze[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
                             break
                         }
 
-                        array = walkOverPath(array, playerPosGhost, itemLeft)
-                        array[playerPosGhost[0]][playerPosGhost[1] - 1] = "rainbow"
+                        walkOverPath(playerPosGhost, itemLeft)
+                        gameMaze[playerPosGhost[0]][playerPosGhost[1] - 1] = "rainbow"
 
                         //else it would continue to loop
                     }
@@ -210,40 +210,40 @@ export function phazePlayer(array, direction) {
             case "right":
                 if (itemRight === "finish") {
                     removeAPhaze()
-                    finishedMaze(array)
+                    finishedMaze()
                 } else if (!(itemRight === "wall")) {
-                    array = walkOverPath(array, playerPosGhost, itemRight)
-                    for (let i = 0; i < array.length - 2; i++) {
+                    walkOverPath(playerPosGhost, itemRight)
+                    for (let i = 0; i < gameMaze.length - 2; i++) {
                         //move up one since there is a space
                         playerPosGhost[1] = playerPosGhost[1] + 1
 
                         //get new nearby items
-                        itemRight = array[playerPosGhost[0]][playerPosGhost[1] + 1]
+                        itemRight = gameMaze[playerPosGhost[0]][playerPosGhost[1] + 1]
 
-                        itemUp = array[playerPosGhost[0] - 1][playerPosGhost[1]]
-                        itemDown = array[playerPosGhost[0] + 1][playerPosGhost[1]]
+                        itemUp = gameMaze[playerPosGhost[0] - 1][playerPosGhost[1]]
+                        itemDown = gameMaze[playerPosGhost[0] + 1][playerPosGhost[1]]
 
                         //check if item is finish
                         if (itemRight === "finish") {
-                            array = walkOverPath(array, playerPosGhost, itemRight)
-                            finishedMaze(array)
+                            walkOverPath(playerPosGhost, itemRight)
+                            finishedMaze()
                             break
                         }
 
                         //check if item in front is a wall
                         if (itemRight === "wall") {
-                            array[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
+                            gameMaze[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
                             break
                         }
 
                         //check if up or down is not a wall
                         if (!(itemUp === "wall") || !(itemDown === "wall")) {
-                            array[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
+                            gameMaze[playerPosGhost[0]][playerPosGhost[1]] = "rainbow"
                             break
                         }
 
-                        array = walkOverPath(array, playerPosGhost, itemRight)
-                        array[playerPosGhost[0]][playerPosGhost[1] + 1] = "rainbow"
+                        walkOverPath(playerPosGhost, itemRight)
+                        gameMaze[playerPosGhost[0]][playerPosGhost[1] + 1] = "rainbow"
 
                         //else it would continue to loop
                     }
@@ -258,6 +258,6 @@ export function phazePlayer(array, direction) {
         }
     } else {
         togglePhaze()
-        movePlayer(array, direction)
+        movePlayer(direction)
     }
 }

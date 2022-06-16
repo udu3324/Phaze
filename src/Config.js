@@ -3,14 +3,17 @@ import { setCookie } from "./Cookies";
 import { resetMaze } from "./Tool";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowDown, faArrowUp, faCircleXmark, faFloppyDisk, faRulerCombined, faStop } from '@fortawesome/free-solid-svg-icons'
+import { faArrowDown, faArrowUp, faCircleXmark, faFloppyDisk, faRulerCombined, faStop, faStopwatch } from '@fortawesome/free-solid-svg-icons'
+import { setTimeShared } from "./Stopwatch";
 
 //default values (can be changed by the config)
+export var gameTime = 15000
 export var size = 25
 export var gameObjectSize = 3.2;
 
 var configUIOpen = false;
 
+var changedGameTime = 0;
 var changedSize = 0;
 var changedGameObjectSize = 0;
 
@@ -31,6 +34,10 @@ export function toggleConfig() {
     }
 }
 
+export function changeGameTime(int) {
+    gameTime = int
+}
+
 export function changeSize(int) {
     size = int
 }
@@ -40,7 +47,6 @@ export function changeGameObjectSize(int) {
     document.documentElement.style.setProperty('--gameObjectSize', gameObjectSize + "vmin");
 }
 
-
 class Config extends React.Component {
     constructor(props) {
         super(props);
@@ -48,6 +54,7 @@ class Config extends React.Component {
         this.saveConfig = this.saveConfig.bind(this);
         this.closeConfig = this.closeConfig.bind(this);
 
+        this.handleGameTime = this.handleGameTime.bind(this);
         this.handleChangeSize = this.handleChangeSize.bind(this);
         this.handleGameObjChangeSize = this.handleGameObjChangeSize.bind(this);
 
@@ -56,6 +63,35 @@ class Config extends React.Component {
 
         this.mazeSizeUp = this.mazeSizeUp.bind(this);
         this.mazeSizeDown = this.mazeSizeDown.bind(this);
+        
+        this.gameTimeUp = this.gameTimeUp.bind(this);
+        this.gameTimeDown = this.gameTimeDown.bind(this);
+    }
+
+    gameTimeUp() {
+        var element = document.getElementById("game-time-input");
+        var changedVal = parseInt(element.value) + 1000
+
+        console.log("game time changed to: " + changedVal)
+        changedGameTime = changedVal;
+        element.value = changedVal
+    }
+
+    gameTimeDown() {
+        var element = document.getElementById("game-time-input");
+        var changedVal = parseInt(element.value) - 1000
+
+        //if more than or equal to 10 (stops glitches)
+        if (changedVal >= 10) {
+            console.log("game time changed to: " + changedVal)
+            changedGameTime = changedVal;
+            element.value = changedVal
+        }
+    }
+
+    handleGameTime(event) {
+        console.log("game time changed to: " + event.target.value)
+        changedGameTime = event.target.value;
     }
 
     mazeSizeUp() {
@@ -111,11 +147,24 @@ class Config extends React.Component {
 
     saveConfig() {
         console.log("saving config \n" +
+            "gameTime = " + changedGameTime + "\n" +
             "size = " + changedSize + "\n" +
             "gameObjectSize = " + changedGameObjectSize)
 
         //fallback for if size or gameObj size is set to less than recommended sizes
         //set cookies if they have been altered
+        if (changedGameTime === 0) {
+            //its not changed
+            changedGameTime = gameTime
+        } else if (changedGameTime < 10) {
+            //its glitched
+            changedGameTime = 10
+        } else {
+            //its changed
+            gameTime = changedGameTime
+        }
+        setCookie("gameTime", gameTime, 99999)
+
         if (changedSize === 0) {
             //its not changed
             changedSize = size
@@ -140,6 +189,10 @@ class Config extends React.Component {
         }
         setCookie("gameObjectSize", gameObjectSize, 99999)
 
+        //change the time
+        console.log(gameTime)
+        setTimeShared(gameTime)
+
         //change img size
         document.documentElement.style.setProperty('--gameObjectSize', gameObjectSize + "vmin");
 
@@ -153,9 +206,11 @@ class Config extends React.Component {
 
     componentDidMount() {
         //set input values from cookies/default
+        var gameTimeInput = document.getElementById('game-time-input')
         var sizeInput = document.getElementById('maze-size-input')
         var gameObjectSizeInput = document.getElementById('game-obj-size-input')
 
+        gameTimeInput.value = gameTime
         sizeInput.value = size
         gameObjectSizeInput.value = gameObjectSize
     }
@@ -163,8 +218,19 @@ class Config extends React.Component {
     render() {
         return <div className="config-div" id="config-div">
             <div className="config-box" id="config-box">
-                <h1>Config</h1>
-                <a href="https://github.com/udu3324/phaze" target="_blank" rel="noopener noreferrer">udu3324/phaze</a>
+                <p id="title">Config</p>
+                <a href="https://github.com/udu3324/phaze" target="_blank" rel="noopener noreferrer">
+                    <img id="github-repo" alt="shield" src="https://img.shields.io/badge/Star%20The%20Repo-ffffff?style=for-the-badge&logo=github&logoColor=black"></img>
+                </a>
+
+                <p>
+                    Game Time (ms) <FontAwesomeIcon icon={faStopwatch} />
+                    <br />
+                    <input onChange={this.handleGameTime} type="number" id="game-time-input" min="1" max="5000" />
+                    <button onClick={this.gameTimeUp} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowUp} /></button>
+                    <button style={{ borderRadius: '0px 3px 3px 0px' }} onClick={this.gameTimeDown} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowDown} /></button>
+                </p>
+
                 <p>
                     Maze Size <FontAwesomeIcon icon={faRulerCombined} />
                     <br />

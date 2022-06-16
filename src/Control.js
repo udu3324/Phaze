@@ -1,32 +1,42 @@
-import { gameMaze } from "."
-
 import { toggleConfig } from "./Config"
 import { togglePhaze } from "./Phaze"
 import { toggleQuake } from "./Quake"
 import { finished, movePlayer, redoMaze, resetMaze } from "./Tool"
 
+var controlls = true
+
+export function canControl(bool) {
+    controlls = bool
+}
 export function createControls() {
 
     //keyboard controls
     document.addEventListener('keydown', function (event) {
-        if (event.key === "a" || event.key === "ArrowLeft") {
-            movePlayer(gameMaze, "left")
-        } else if (event.key === "d" || event.key === "ArrowRight") {
-            movePlayer(gameMaze, "right")
-        } else if (event.key === "w" || event.key === "ArrowUp") {
-            movePlayer(gameMaze, "up")
-        } else if (event.key === "s" || event.key === "ArrowDown") {
-            movePlayer(gameMaze, "down")
-        } else if (event.key === "r") {
+        if (event.key === "r") {
             if (finished) {
                 //change reset button to redo
                 var redobtn = document.querySelector('#redo-reset-btn');
                 redobtn.innerHTML = redobtn.innerHTML.substring(0, redobtn.innerHTML.length - 4) + "edo";
 
-                resetMaze(gameMaze)
+                resetMaze()
             } else {
-                redoMaze(gameMaze)
+                redoMaze()
             }
+        }
+        
+        if (!controlls) {
+            console.log("ignored keystroke")
+            return
+        }
+        
+        if (event.key === "a" || event.key === "ArrowLeft") {
+            movePlayer("left")
+        } else if (event.key === "d" || event.key === "ArrowRight") {
+            movePlayer("right")
+        } else if (event.key === "w" || event.key === "ArrowUp") {
+            movePlayer("up")
+        } else if (event.key === "s" || event.key === "ArrowDown") {
+            movePlayer("down")
         } else if (event.key === "c") {
             toggleConfig()
         } else if (event.key === "e") {
@@ -66,21 +76,21 @@ function handleTouchMove(evt) {
     var xDiff = xDown - xUp;
     var yDiff = yDown - yUp;
 
-    if (Math.abs(xDiff) > Math.abs(yDiff)) {/*most significant*/
+    if (Math.abs(xDiff) > Math.abs(yDiff) && controlls) {/*most significant*/
         if (xDiff > 0) {
             /* right swipe */
-            movePlayer(gameMaze, "right")
+            movePlayer("right")
         } else {
             /* left swipe */
-            movePlayer(gameMaze, "left")
+            movePlayer("left")
         }
     } else {
         if (yDiff > 0) {
             /* down swipe */
-            movePlayer(gameMaze, "down")
+            movePlayer("down")
         } else {
             /* up swipe */
-            movePlayer(gameMaze, "up")
+            movePlayer("up")
         }
     }
     /* reset values */

@@ -281,6 +281,10 @@ div#tools {
   line-height: 0px;
 }
 
+.overlay-p {
+  margin: 0px 0px 25px 0px;
+}
+
 .space,
 .missing,
 .wall,
@@ -357,7 +361,7 @@ div#maze {
   transition: 0.3s ease;
   text-align: left;
   backdrop-filter: blur(5px);
-  font-size: 4vmin;
+  font-size: 3.6vmin;
 }
 
 div#ran-out-of-time {

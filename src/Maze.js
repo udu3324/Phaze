@@ -6,13 +6,9 @@ export function clearOverlays() {
     document.getElementById("ran-out-of-time").style.opacity = 0
     document.getElementById("finished").style.opacity = 0
 
-    var time = document.getElementById("edit-results-time").innerHTML
-    if (time.lastIndexOf("(") > 1)
-        document.getElementById("edit-results-time").innerHTML = time.substring(0, time.lastIndexOf("("))
+    document.getElementById("edit-results-time").innerHTML = "You didn't finish the maze in time! "
 
-    var finished = document.getElementById("edit-results-finished").innerHTML
-    if (finished.indexOf("<br/>") > 1)
-        document.getElementById("edit-results-finished").innerHTML = finished.substring(0, finished.indexOf("<br/>"))
+    document.getElementById("edit-results-finished").innerHTML = "You finished the maze! "
 }
 
 // https://stackoverflow.com/questions/15164655/generate-html-table-from-2d-javascript-array
@@ -61,19 +57,19 @@ class Maze extends React.Component {
         return (
             <div id="maze">
                 <div id="ran-out-of-time" className="maze-overlay">
-                    <p id="edit-results-time">You didn't finish the maze in time! </p>
-                    <p>Try using Quake and Phaze more strategically, or change the time in the config. </p>
+                    <p id="edit-results-time" className="overlay-p">You didn't finish the maze in time! </p>
+                    <p className="overlay-p">Try using Quake and Phaze more strategically, or change the time in the config. </p>
 
-                    <p>Press R or the Redo Button to retry the maze.</p>
+                    <p className="overlay-p">Press R or the Redo Button to retry the maze.</p>
                 </div>
 
                 <div id="finished" className="maze-overlay">
-                    <p id="edit-results-finished">
+                    <p id="edit-results-finished" className="overlay-p">
                         You finished the maze!
                     </p>
-                    <p>You can make the maze more challenging by changing the game config. </p>
+                    <p className="overlay-p">You can make the maze more challenging by changing the game config. </p>
 
-                    <p>Press R or the Reset Button to make a new maze.</p>
+                    <p className="overlay-p">Press R or the Reset Button to make a new maze.</p>
                 </div>
 
                 <div id="maze-canvas" dangerouslySetInnerHTML={createMarkup(gameMaze)} />

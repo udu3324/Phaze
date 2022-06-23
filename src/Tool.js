@@ -171,7 +171,7 @@ export function finishedMaze() {
     stopTimer()
 
     document.getElementById("finished").style.opacity = 1
-    document.getElementById("edit-results-finished").innerHTML += `<br/>Finished In ${gameTime - currentTime}ms<br/>${numberOfPhazes}/${defaultNumberOfPhazes} Phazes Left<br/>${numberOfQuakes}/${defaultNumberOfQuakes} Quakes Left`
+    document.getElementById("edit-results-finished").innerHTML += `<br/>${currentTime}/${gameTime}ms Left<br/>${numberOfPhazes}/${defaultNumberOfPhazes} Phazes Left<br/>${numberOfQuakes}/${defaultNumberOfQuakes} Quakes Left`
 
     finished = true
     console.log("finished!")

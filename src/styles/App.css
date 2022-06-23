@@ -256,14 +256,12 @@ a:active {
   border-radius: 30px;
 }
 
-.down-btn:hover,
-.control-btn:hover {
+.down-btn:hover {
   background: #00000038;
   border: none;
 }
 
-.down-btn:active,
-.control-btn:active {
+.down-btn:active {
   background-color: #00000086;
 }
 

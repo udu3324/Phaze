@@ -9,7 +9,7 @@ import { setTimeShared } from "./Stopwatch";
 //default values (can be changed by the config)
 export var gameTime = 15000
 export var size = 25
-export var gameObjectSize = 3.2;
+export var gameObjectSize = 3.0;
 export var screenShake = true;
 export var lowerButtonControls = true;
 

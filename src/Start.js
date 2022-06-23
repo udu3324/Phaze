@@ -47,7 +47,7 @@ class Start extends React.Component {
                     Phaze is a maze with extra things to do. Finish it before the time runs out!
                     <br />
                     <br />
-                    You start as a red block at the bottom left of the maze.
+                    You start at the bottom left of the maze.
                     <br />
                     <br />
                     PC: WASD / Arrow Keys

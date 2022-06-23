@@ -281,6 +281,10 @@ div#tools {
   line-height: 0px;
 }
 
+.overlay-p {
+  margin: 0px 0px 25px 0px;
+}
+
 .space,
 .missing,
 .wall,
@@ -357,6 +361,7 @@ div#maze {
   transition: 0.3s ease;
   text-align: left;
   backdrop-filter: blur(5px);
+  font-size: 3.6vmin;
 }
 
 div#ran-out-of-time {
@@ -539,8 +544,13 @@ img#github-repo {
 
 p#title {
   font-weight: bold;
-  font-size: 50px;
+  font-size: 35px;
   margin: 0px 0px 5px 0px;
+}
+
+img {
+  border-radius: 13px;
+  padding: 3px;
 }
 
 /* Remove Focus */

@@ -38,7 +38,7 @@ class Up extends React.Component {
                 <Stopwatch />
             </div>
             <div id="right">
-                <button onClick={this.openConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faGear} /><u>C</u>onfig</button>
+                <button onClick={this.openConfig} id="config-btn" className="top-btn" type="button"><FontAwesomeIcon icon={faGear} /><u>C</u>onfig</button>
             </div>
         </div>;
     }

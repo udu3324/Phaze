@@ -2,10 +2,10 @@ import maze from 'amazejs';
 import { gameMaze, newMaze } from '.';
 import { shake } from './Animate';
 import { gameTime } from './Config';
-import { canControl } from './Control';
+import { canControl, controlls } from './Control';
 import { clearOverlays, updateCanvas } from './Maze';
 import { defaultNumberOfPhazes, numberOfPhazes, phazePlayer, phazeToggled, resetPhaze, togglePhaze } from './Phaze';
-import { defaultNumberOfQuakes, numberOfQuakes, quakePlayer, quakeToggled, resetQuake, toggleQuake } from './Quake';
+import { defaultNumberOfQuakes, numberOfQuakes, quakedWalls, quakePlayer, quakeToggled, resetQuake, toggleQuake } from './Quake';
 import { currentTime, resetTimer, setRunningShared, stopTimer } from './Stopwatch';
 
 export var finished = false;
@@ -140,6 +140,13 @@ export function redoMaze() {
     replace(gameMaze, "rainbow", "space")
     gameMaze[gameMaze.length - 2][1] = "start"
 
+    //replace walls broken by quake
+    for (let index = 0; index < quakedWalls.length; ++index) {
+        var y = quakedWalls[index][0]
+        var x = quakedWalls[index][1]
+        gameMaze[y][x] = "wall"
+    }
+
     //stop and reset timer
     stopTimer()
     resetTimer()
@@ -155,7 +162,7 @@ export function redoMaze() {
     canControl(true)
     
     boolRunOnce = true
-
+    
     updateCanvas()
 }
 
@@ -196,6 +203,11 @@ var boolRunOnce = true;
 
 export function movePlayer(direction) {
     if (!finished) {
+        if (!controlls) {
+            console.log("ignored movement")
+            return
+        }
+
         //get player pos
         var playerPos = getPlayerPosition(gameMaze)
 
@@ -260,7 +272,7 @@ export function movePlayer(direction) {
                     }
                     break;
                 default:
-                    console.error("NO VALID DIRECTION PROVIDED!!!")
+                    console.error("NO VALID DIRECTION PROVIDED!!! " + direction)
             }
         }
 
@@ -272,6 +284,8 @@ export function movePlayer(direction) {
                 resetTimer()
                 setRunningShared(true)
                 boolRunOnce = false
+
+
             }
         }
     }

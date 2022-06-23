@@ -3,7 +3,7 @@ import { togglePhaze } from "./Phaze"
 import { toggleQuake } from "./Quake"
 import { finished, movePlayer, redoMaze, resetMaze } from "./Tool"
 
-var controlls = true
+export var controlls = true
 
 export function canControl(bool) {
     controlls = bool
@@ -12,7 +12,29 @@ export function createControls() {
 
     //keyboard controls
     document.addEventListener('keydown', function (event) {
-        if (event.key === "r") {
+        if (event.key === "a" || event.key === "ArrowLeft") {
+            movePlayer("left")
+            document.getElementById("left-btn").style.backgroundColor = "#00000086"
+        } else if (event.key === "d" || event.key === "ArrowRight") {
+            movePlayer("right")
+            document.getElementById("right-btn").style.backgroundColor = "#00000086"
+        } else if (event.key === "w" || event.key === "ArrowUp") {
+            movePlayer("up")
+            document.getElementById("up-btn").style.backgroundColor = "#00000086"
+        } else if (event.key === "s" || event.key === "ArrowDown") {
+            movePlayer("down")
+            document.getElementById("down-btn").style.backgroundColor = "#00000086"
+        } else if (event.key === "c") {
+            toggleConfig()
+            document.getElementById("config-btn").style.backgroundColor = "#00000086"
+        } else if (event.key === "e") {
+            togglePhaze()
+            document.getElementById("phaze-btn").style.backgroundColor = "#00000086"
+        } else if (event.key === "q") {
+            toggleQuake()
+            document.getElementById("quake-btn").style.backgroundColor = "#00000086"
+        } else if (event.key === "r") {
+            document.getElementById("redo-reset-btn").style.backgroundColor = "#00000086"
             if (finished) {
                 //change reset button to redo
                 var redobtn = document.querySelector('#redo-reset-btn');
@@ -23,28 +45,28 @@ export function createControls() {
                 redoMaze()
             }
         }
-        
-        if (!controlls) {
-            console.log("ignored keystroke")
-            return
-        }
-        
+    })
+
+    document.addEventListener('keyup', function (event) {
         if (event.key === "a" || event.key === "ArrowLeft") {
-            movePlayer("left")
+            document.getElementById("left-btn").style.backgroundColor = "#00000000"
         } else if (event.key === "d" || event.key === "ArrowRight") {
-            movePlayer("right")
+            document.getElementById("right-btn").style.backgroundColor = "#00000000"
         } else if (event.key === "w" || event.key === "ArrowUp") {
-            movePlayer("up")
+            document.getElementById("up-btn").style.backgroundColor = "#00000000"
         } else if (event.key === "s" || event.key === "ArrowDown") {
-            movePlayer("down")
+            document.getElementById("down-btn").style.backgroundColor = "#00000000"
         } else if (event.key === "c") {
-            toggleConfig()
+            document.getElementById("config-btn").style.backgroundColor = "#00000000"
         } else if (event.key === "e") {
-            togglePhaze()
+            document.getElementById("phaze-btn").style.backgroundColor = "#00000000"
         } else if (event.key === "q") {
-            toggleQuake()
+            document.getElementById("quake-btn").style.backgroundColor = "#00000000"
+        } else if (event.key === "r") {
+            document.getElementById("redo-reset-btn").style.backgroundColor = "#00000000"
         }
     })
+
 
     //touch controls
     document.addEventListener('touchstart', handleTouchStart, false);
@@ -76,7 +98,7 @@ function handleTouchMove(evt) {
     var xDiff = xDown - xUp;
     var yDiff = yDown - yUp;
 
-    if (Math.abs(xDiff) > Math.abs(yDiff) && controlls) {/*most significant*/
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {/*most significant*/
         if (xDiff > 0) {
             /* right swipe */
             movePlayer("right")

@@ -1,3 +1,5 @@
+import { getCookie } from "./Cookies";
+
 function clearAnimations() {
     return function () {
         document.getElementById('maze-canvas').style.animation = ""
@@ -5,6 +7,9 @@ function clearAnimations() {
 }
 
 export function shake(ms, direction) {
+    if (getCookie("screenShake") === "false")
+        return;
+
     if (ms === undefined) {
         console.error("No time provided! shake(-->ms<--, direction)")
     } else {
@@ -26,6 +31,9 @@ export function shake(ms, direction) {
 }
 
 export function shakeHard(ms, direction) {
+    if (getCookie("screenShake") === "false")
+        return;
+        
     if (ms === undefined) {
         console.error("No time provided! shake(-->ms<--, direction)")
     } else {

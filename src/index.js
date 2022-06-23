@@ -7,27 +7,36 @@ import reportWebVitals from './reportWebVitals';
 
 import { createMaze } from './Tool'
 import { createControls } from './Control';
-import { changeGameObjectSize, changeGameTime, changeSize, gameObjectSize, gameTime, size } from './Config';
+import { changeGameObjectSize, changeGameTime, changeLowerButtonControls, changeScreenShake, changeSize, gameObjectSize, gameTime, size } from './Config';
 import { getCookie } from './Cookies';
 export var gameMaze;
 
-//load values from cookies if there are any\
-if (getCookie("gameTime") === " ") {
+//load values from cookies if there are any
+if (getCookie("screenShake") === " ")
+  changeScreenShake("true")
+else
+  changeScreenShake(getCookie("screenShake"))
+
+if (getCookie("lowerButtonControls") === " ")
+  changeLowerButtonControls("true")
+else
+  changeLowerButtonControls(getCookie("lowerButtonControls"))
+
+if (getCookie("gameTime") === " ")
   changeGameTime(gameTime)
-} else {
+else
   changeGameTime(parseInt(getCookie("gameTime")))
-}
+
+if (getCookie("gameObjectSize") === " ")
+  changeGameObjectSize(gameObjectSize)
+else
+  changeGameObjectSize(parseFloat(getCookie("gameObjectSize")))
+
 if (getCookie("size") === " ") {
   gameMaze = createMaze(size)
 } else {
   gameMaze = createMaze(parseInt(getCookie("size")))
   changeSize(parseInt(getCookie("size")))
-}
-
-if (getCookie("gameObjectSize") === " ") {
-  changeGameObjectSize(gameObjectSize)
-} else {
-  changeGameObjectSize(parseFloat(getCookie("gameObjectSize")))
 }
 
 export function newMaze() {

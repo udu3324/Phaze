@@ -2,7 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleArrowDown, faCircleArrowLeft, faCircleArrowRight, faCircleArrowUp, faMeteor, faPersonRunning } from '@fortawesome/free-solid-svg-icons'
 import { movePlayer } from "./Tool";
-import { gameMaze } from ".";
 import { defaultNumberOfPhazes, togglePhaze } from "./Phaze";
 import { defaultNumberOfQuakes, toggleQuake } from "./Quake";
 
@@ -19,19 +18,19 @@ class Down extends React.Component {
     }
 
     up() {
-        movePlayer(gameMaze, "up")
+        movePlayer("up")
     }
 
     down() {
-        movePlayer(gameMaze, "down")
+        movePlayer("down")
     }
 
     left() {
-        movePlayer(gameMaze, "left")
+        movePlayer("left")
     }
 
     right() {
-        movePlayer(gameMaze, "right")
+        movePlayer("right")
     }
 
     phaze() {
@@ -43,7 +42,7 @@ class Down extends React.Component {
     }
 
     render() {
-        return <div className="down-div">
+        return <div className="down-div" id="down-div">
             <div>
                 <button onClick={this.up} aria-label="up" id="up-btn" className="control-btn vertical" type="button"><FontAwesomeIcon icon={faCircleArrowUp} /></button><br />
                 <button onClick={this.left} aria-label="left" id="left-btn" className="control-btn horizontal" type="button"><FontAwesomeIcon icon={faCircleArrowLeft} /></button>

@@ -1,21 +1,25 @@
 import React from "react";
-import { setCookie } from "./Cookies";
+import { getCookie, setCookie } from "./Cookies";
 import { resetMaze } from "./Tool";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowDown, faArrowUp, faCircleXmark, faFloppyDisk, faRulerCombined, faStop, faStopwatch } from '@fortawesome/free-solid-svg-icons'
+import { faArrowDown, faArrowUp, faCircleXmark, faFloppyDisk, faKeyboard, faRotate, faRulerCombined, faStop, faStopwatch } from '@fortawesome/free-solid-svg-icons'
 import { setTimeShared } from "./Stopwatch";
 
 //default values (can be changed by the config)
 export var gameTime = 15000
 export var size = 25
 export var gameObjectSize = 3.2;
+export var screenShake = true;
+export var lowerButtonControls = true;
 
 var configUIOpen = false;
 
 var changedGameTime = 0;
 var changedSize = 0;
 var changedGameObjectSize = 0;
+var changedScreenShake;
+var changedLowerButtonControls;
 
 export function toggleConfig() {
     var configDiv = document.getElementById('config-div');
@@ -47,6 +51,14 @@ export function changeGameObjectSize(int) {
     document.documentElement.style.setProperty('--gameObjectSize', gameObjectSize + "vmin");
 }
 
+export function changeScreenShake(bool) {
+    screenShake = (bool === 'true')
+}
+
+export function changeLowerButtonControls(bool) {
+    lowerButtonControls = (bool === 'true')
+}
+
 class Config extends React.Component {
     constructor(props) {
         super(props);
@@ -54,18 +66,37 @@ class Config extends React.Component {
         this.saveConfig = this.saveConfig.bind(this);
         this.closeConfig = this.closeConfig.bind(this);
 
-        this.handleGameTime = this.handleGameTime.bind(this);
-        this.handleChangeSize = this.handleChangeSize.bind(this);
-        this.handleGameObjChangeSize = this.handleGameObjChangeSize.bind(this);
+        this.handleScreenShake = this.handleScreenShake.bind(this);
 
+        this.handleLowerButtonControls = this.handleLowerButtonControls.bind(this);
+
+        this.handleGameObjChangeSize = this.handleGameObjChangeSize.bind(this);
         this.gameObjectSizeUp = this.gameObjectSizeUp.bind(this);
         this.gameObjectSizeDown = this.gameObjectSizeDown.bind(this);
 
+        this.handleChangeSize = this.handleChangeSize.bind(this);
         this.mazeSizeUp = this.mazeSizeUp.bind(this);
         this.mazeSizeDown = this.mazeSizeDown.bind(this);
-        
+
+        this.handleGameTime = this.handleGameTime.bind(this);
         this.gameTimeUp = this.gameTimeUp.bind(this);
         this.gameTimeDown = this.gameTimeDown.bind(this);
+    }
+
+    handleScreenShake() {
+        var element = document.getElementById("screen-shake-checkbox");
+        var changedVal = element.checked
+
+        console.log("screen shake changed to: " + changedVal)
+        changedScreenShake = changedVal;
+    }
+
+    handleLowerButtonControls() {
+        var element = document.getElementById("lower-button-controls-checkbox");
+        var changedVal = element.checked
+
+        console.log("lower button controls changed to: " + changedVal)
+        changedLowerButtonControls = changedVal;
     }
 
     gameTimeUp() {
@@ -147,6 +178,8 @@ class Config extends React.Component {
 
     saveConfig() {
         console.log("saving config \n" +
+            "screenShake = " + changedScreenShake + "\n" +
+            "lowerButtonControls = " + changedLowerButtonControls + "\n" +
             "gameTime = " + changedGameTime + "\n" +
             "size = " + changedSize + "\n" +
             "gameObjectSize = " + changedGameObjectSize)
@@ -189,8 +222,25 @@ class Config extends React.Component {
         }
         setCookie("gameObjectSize", gameObjectSize, 99999)
 
+        if (changedScreenShake == null) {
+            //its not changed
+            changedScreenShake = screenShake
+        } else {
+            //its changed
+            screenShake = changedScreenShake
+        }
+        setCookie("screenShake", screenShake, 99999)
+
+        if (changedLowerButtonControls == null) {
+            //its not changed
+            changedLowerButtonControls = lowerButtonControls
+        } else {
+            //its changed
+            lowerButtonControls = changedLowerButtonControls
+        }
+        setCookie("lowerButtonControls", lowerButtonControls, 99999)
+
         //change the time
-        console.log(gameTime)
         setTimeShared(gameTime)
 
         //change img size
@@ -198,6 +248,13 @@ class Config extends React.Component {
 
         //reset maze
         resetMaze()
+
+        //lower controls
+        if (getCookie("lowerButtonControls") === "false") {
+            document.querySelector("#down-div").style.setProperty('display', 'none');
+        } else {
+            document.querySelector("#down-div").style.setProperty('display', 'inherit');
+        }
     }
 
     closeConfig() {
@@ -209,10 +266,20 @@ class Config extends React.Component {
         var gameTimeInput = document.getElementById('game-time-input')
         var sizeInput = document.getElementById('maze-size-input')
         var gameObjectSizeInput = document.getElementById('game-obj-size-input')
+        var screenShakeCheckbox = document.getElementById("screen-shake-checkbox")
+        var lowerButtonControlsCheckbox = document.getElementById("lower-button-controls-checkbox")
 
         gameTimeInput.value = gameTime
         sizeInput.value = size
         gameObjectSizeInput.value = gameObjectSize
+        screenShakeCheckbox.checked = screenShake
+        lowerButtonControlsCheckbox.checked = lowerButtonControls
+        //lower controls
+        if (getCookie("lowerButtonControls") === "false") {
+            document.querySelector("#down-div").style.setProperty('display', 'none');
+        } else {
+            document.querySelector("#down-div").style.setProperty('display', 'inherit');
+        }
     }
 
     render() {
@@ -246,6 +313,22 @@ class Config extends React.Component {
                     <button onClick={this.gameObjectSizeUp} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowUp} /></button>
                     <button style={{ borderRadius: '0px 3px 3px 0px' }} onClick={this.gameObjectSizeDown} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowDown} /></button>
 
+                </p>
+
+                <p>
+                    <label className="container">
+                        Screen Shake <FontAwesomeIcon icon={faRotate} />
+                        <input onChange={this.handleScreenShake} type="checkbox" id="screen-shake-checkbox" />
+                        <span className="checkmark"></span>
+                    </label>
+                </p>
+
+                <p>
+                    <label className="container">
+                        Lower Button Controls <FontAwesomeIcon icon={faKeyboard} />
+                        <input onChange={this.handleLowerButtonControls} type="checkbox" id="lower-button-controls-checkbox" />
+                        <span className="checkmark"></span>
+                    </label>
                 </p>
 
                 <button onClick={this.saveConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faFloppyDisk} />Save</button>

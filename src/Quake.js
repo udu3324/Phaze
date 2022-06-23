@@ -8,7 +8,10 @@ export var quakeToggled = false
 export const defaultNumberOfQuakes = 3
 export var numberOfQuakes = defaultNumberOfQuakes
 
+export var quakedWalls = []
+
 export function resetQuake() {
+    quakedWalls = []
     numberOfQuakes = defaultNumberOfQuakes
     setButtonStatus(numberOfQuakes)
 }
@@ -73,7 +76,8 @@ export function quakePlayer(direction) {
                 if (itemUp === "wall") {
                     if (!((playerPos[0] - 1) === 0)) {
                         walkOverPath(playerPos, itemUp)
-
+                        
+                        quakedWalls.push([[playerPos[0] - 1], [playerPos[1]]])
                         gameMaze[playerPos[0] - 1][playerPos[1]] = "rainbow"
 
                         removeAQuake()
@@ -91,7 +95,9 @@ export function quakePlayer(direction) {
                     if (!((playerPos[0] + 1) === 24)) {
                         walkOverPath(playerPos, itemDown)
 
+                        quakedWalls.push([[playerPos[0] + 1], [playerPos[1]]])
                         gameMaze[playerPos[0] + 1][playerPos[1]] = "rainbow"
+
                         removeAQuake()
                         toggleQuake()
                         updateCanvas()
@@ -109,6 +115,7 @@ export function quakePlayer(direction) {
                         console.log(playerPos[0])
                         walkOverPath(playerPos, itemLeft)
 
+                        quakedWalls.push([[playerPos[0]], [playerPos[1] - 1]])
                         gameMaze[playerPos[0]][playerPos[1] - 1] = "rainbow"
 
                         removeAQuake()
@@ -126,6 +133,7 @@ export function quakePlayer(direction) {
                     if (!((playerPos[1] + 1) === 24)) {
                         walkOverPath(playerPos, itemRight)
 
+                        quakedWalls.push([[playerPos[0]], [playerPos[1] + 1]])
                         gameMaze[playerPos[0]][playerPos[1] + 1] = "rainbow"
 
                         removeAQuake()

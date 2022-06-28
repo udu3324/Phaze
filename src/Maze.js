@@ -3,8 +3,8 @@ import React from "react";
 import { gameMaze } from ".";
 
 export function clearOverlays() {
-    document.getElementById("ran-out-of-time").style.opacity = 0
-    document.getElementById("finished").style.opacity = 0
+    document.getElementById("ran-out-of-time").style.display = "none"
+    document.getElementById("finished").style.display = "none"
 
     document.getElementById("edit-results-time").innerHTML = "You didn't finish the maze in time! "
 

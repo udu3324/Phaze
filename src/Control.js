@@ -14,27 +14,27 @@ export function createControls() {
     document.addEventListener('keydown', function (event) {
         if (event.key === "a" || event.key === "ArrowLeft") {
             movePlayer("left")
-            document.getElementById("left-btn").style.backgroundColor = "#00000086"
+            document.getElementById("left-btn").style.filter = "brightness(65%)"
         } else if (event.key === "d" || event.key === "ArrowRight") {
             movePlayer("right")
-            document.getElementById("right-btn").style.backgroundColor = "#00000086"
+            document.getElementById("right-btn").style.filter = "brightness(65%)"
         } else if (event.key === "w" || event.key === "ArrowUp") {
             movePlayer("up")
-            document.getElementById("up-btn").style.backgroundColor = "#00000086"
+            document.getElementById("up-btn").style.filter = "brightness(65%)"
         } else if (event.key === "s" || event.key === "ArrowDown") {
             movePlayer("down")
-            document.getElementById("down-btn").style.backgroundColor = "#00000086"
+            document.getElementById("down-btn").style.filter = "brightness(65%)"
         } else if (event.key === "c") {
             toggleConfig()
-            document.getElementById("config-btn").style.backgroundColor = "#00000086"
+            document.getElementById("config-btn").style.filter = "brightness(65%)"
         } else if (event.key === "e") {
             togglePhaze()
-            document.getElementById("phaze-btn").style.backgroundColor = "#00000086"
+            document.getElementById("phaze-btn").style.filter = "brightness(65%)"
         } else if (event.key === "q") {
             toggleQuake()
-            document.getElementById("quake-btn").style.backgroundColor = "#00000086"
+            document.getElementById("quake-btn").style.filter = "brightness(65%)"
         } else if (event.key === "r") {
-            document.getElementById("redo-reset-btn").style.backgroundColor = "#00000086"
+            document.getElementById("redo-reset-btn").style.filter = "brightness(65%)"
             if (finished) {
                 //change reset button to redo
                 var redobtn = document.querySelector('#redo-reset-btn');
@@ -49,21 +49,21 @@ export function createControls() {
 
     document.addEventListener('keyup', function (event) {
         if (event.key === "a" || event.key === "ArrowLeft") {
-            document.getElementById("left-btn").style.backgroundColor = "#00000000"
+            document.getElementById("left-btn").style.filter = "brightness(100%)"
         } else if (event.key === "d" || event.key === "ArrowRight") {
-            document.getElementById("right-btn").style.backgroundColor = "#00000000"
+            document.getElementById("right-btn").style.filter = "brightness(100%)"
         } else if (event.key === "w" || event.key === "ArrowUp") {
-            document.getElementById("up-btn").style.backgroundColor = "#00000000"
+            document.getElementById("up-btn").style.filter = "brightness(100%)"
         } else if (event.key === "s" || event.key === "ArrowDown") {
-            document.getElementById("down-btn").style.backgroundColor = "#00000000"
+            document.getElementById("down-btn").style.filter = "brightness(100%)"
         } else if (event.key === "c") {
-            document.getElementById("config-btn").style.backgroundColor = "#00000000"
+            document.getElementById("config-btn").style.filter = "brightness(100%)"
         } else if (event.key === "e") {
-            document.getElementById("phaze-btn").style.backgroundColor = "#00000000"
+            document.getElementById("phaze-btn").style.filter = "brightness(100%)"
         } else if (event.key === "q") {
-            document.getElementById("quake-btn").style.backgroundColor = "#00000000"
+            document.getElementById("quake-btn").style.filter = "brightness(100%)"
         } else if (event.key === "r") {
-            document.getElementById("redo-reset-btn").style.backgroundColor = "#00000000"
+            document.getElementById("redo-reset-btn").style.filter = "brightness(100%)"
         }
     })
 

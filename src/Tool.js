@@ -170,7 +170,7 @@ export function finishedMaze() {
     //stop timer
     stopTimer()
 
-    document.getElementById("finished").style.opacity = 1
+    document.getElementById("finished").style.display = "inherit"
     document.getElementById("edit-results-finished").innerHTML += `<br/>${currentTime}/${gameTime}ms Left<br/>${numberOfPhazes}/${defaultNumberOfPhazes} Phazes Left<br/>${numberOfQuakes}/${defaultNumberOfQuakes} Quakes Left`
 
     finished = true

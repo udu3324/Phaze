@@ -42,7 +42,7 @@ var Stopwatch = () => {
                 if (currentTime === 0) {
                     canControl(false)
                     stopTimer()
-                    document.getElementById("ran-out-of-time").style.opacity = 1
+                    document.getElementById("ran-out-of-time").style.display = "inherit"
                     document.getElementById("edit-results-time").innerHTML += "(" + gameTime + "ms)"
 
                     return;

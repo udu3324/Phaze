@@ -248,12 +248,18 @@ a:active {
 }
 
 .control-btn {
-  font-family: 'JetBrains Mono', monospace;
   color: #ffffff;
   font-size: calc(19px + 2vmin);
   background: none;
   border: none;
   border-radius: 30px;
+  height: calc(19px + 2vmin);
+  width: calc(19px + 2vmin);
+  padding: 0px;
+}
+
+div#space {
+  padding-left: 21px;
 }
 
 button#up-btn:active,
@@ -283,19 +289,28 @@ div#tools {
 
 /* tysm https://stackoverflow.com/a/53375498/16216937 */
 
+#controller {
+  display: grid;
+  grid-template-areas: "l space r";
+}
+
+#controller>div[grid^="space"] {
+  grid-area: space;
+}
+
+#controller>div[grid^="tool"] {
+  grid-area: r;
+}
+
+#controller>div[grid^="dpad"] {
+  grid-area: l;
+}
+
 #controller>.dpad {
   display: grid;
-  grid-template-areas: ".     .     header     .       q"
-    ".    main      .     right     ."
-    ".     .     footer     .       p";
-}
-
-#controller>.dpad>button[game-btn^="KEY_QUAKE"] {
-  grid-area: q;
-}
-
-#controller>.dpad>button[game-btn^="KEY_PHAZE"] {
-  grid-area: p;
+  grid-template-areas: ".     header     ."
+    "main      .     right"
+    ".     footer     .";
 }
 
 #controller>.dpad>button[game-btn^="KEY_UP"] {
@@ -403,11 +418,11 @@ div#maze {
 }
 
 div#ran-out-of-time {
-  opacity: 0
+  display: none
 }
 
 div#finished {
-  opacity: 0
+  display: none
 }
 
 /* Config */

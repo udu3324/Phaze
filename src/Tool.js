@@ -284,8 +284,6 @@ export function movePlayer(direction) {
                 resetTimer()
                 setRunningShared(true)
                 boolRunOnce = false
-
-
             }
         }
     }

@@ -256,6 +256,13 @@ a:active {
   border-radius: 30px;
 }
 
+button#up-btn:active,
+button#down-btn:active,
+button#left-btn:active,
+button#right-btn:active {
+  background-color: #00000086;
+}
+
 .down-btn:hover {
   background: #00000038;
   border: none;
@@ -272,6 +279,39 @@ a:active {
 
 div#tools {
   padding-left: 13px;
+}
+
+/* tysm https://stackoverflow.com/a/53375498/16216937 */
+
+#controller>.dpad {
+  display: grid;
+  grid-template-areas: ".     .     header     .       q"
+    ".    main      .     right     ."
+    ".     .     footer     .       p";
+}
+
+#controller>.dpad>button[game-btn^="KEY_QUAKE"] {
+  grid-area: q;
+}
+
+#controller>.dpad>button[game-btn^="KEY_PHAZE"] {
+  grid-area: p;
+}
+
+#controller>.dpad>button[game-btn^="KEY_UP"] {
+  grid-area: header;
+}
+
+#controller>.dpad>button[game-btn^="KEY_LEFT"] {
+  grid-area: main;
+}
+
+#controller>.dpad>button[game-btn^="KEY_RIGHT"] {
+  grid-area: right;
+}
+
+#controller>.dpad>button[game-btn^="KEY_DOWN"] {
+  grid-area: footer;
 }
 
 /* Game */

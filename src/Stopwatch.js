@@ -45,7 +45,7 @@ var Stopwatch = () => {
                 canControl(false)
                 stopTimer()
                 document.getElementById("ran-out-of-time").style.display = "inherit"
-                document.getElementById("edit-results-time").innerHTML += `${gameTime}ms) ${numbersOfRedos}redos)`
+                document.getElementById("edit-results-time").innerHTML += `(${gameTime}ms) (${numbersOfRedos}redos)`
 
                 return;
             } else {

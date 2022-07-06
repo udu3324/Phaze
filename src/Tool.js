@@ -10,6 +10,8 @@ import { currentTime, resetTimer, setRunningShared, stopTimer } from './Stopwatc
 
 export var finished = false;
 
+export var numbersOfRedos = 0;
+
 function createArray(length) {
     var arr = new Array(length || 0),
         i = length;
@@ -105,6 +107,7 @@ export function walkOverPath(playerPos, item) {
 }
 
 export function resetMaze() {
+    numbersOfRedos = 0
     console.log("resetting maze!")
 
     clearOverlays()
@@ -123,7 +126,7 @@ export function resetMaze() {
         togglePhaze()
     if (quakeToggled)
         toggleQuake()
-    
+
     canControl(true)
 
     boolRunOnce = true
@@ -132,7 +135,8 @@ export function resetMaze() {
 }
 
 export function redoMaze() {
-    console.log("redoing maze!")
+    numbersOfRedos++;
+    console.log("redoing maze! " + numbersOfRedos)
 
     clearOverlays()
 
@@ -158,11 +162,9 @@ export function redoMaze() {
         togglePhaze()
     if (quakeToggled)
         toggleQuake()
-    
+
     canControl(true)
-    
     boolRunOnce = true
-    
     updateCanvas()
 }
 
@@ -171,7 +173,10 @@ export function finishedMaze() {
     stopTimer()
 
     document.getElementById("finished").style.display = "inherit"
-    document.getElementById("edit-results-finished").innerHTML += `<br/>${currentTime}/${gameTime}ms Left<br/>${numberOfPhazes}/${defaultNumberOfPhazes} Phazes Left<br/>${numberOfQuakes}/${defaultNumberOfQuakes} Quakes Left`
+    document.getElementById("edit-results-finished").innerHTML += `<br/>${currentTime}/${gameTime}ms Left` +
+    `<br/>${numberOfPhazes}/${defaultNumberOfPhazes} Phazes Left` + 
+    `<br/>${numberOfQuakes}/${defaultNumberOfQuakes} Quakes Left` +
+    `<br/>${numbersOfRedos} Redos`
 
     finished = true
     console.log("finished!")
@@ -187,14 +192,12 @@ export function finishedMaze() {
     redobtn.innerHTML = redobtn.innerHTML.substring(0, redobtn.innerHTML.length - 3) + "eset";
 
     //toggle all tools off
-    if (phazeToggled) {
+    if (phazeToggled)
         togglePhaze()
-    }
-    if (quakeToggled) {
+    if (quakeToggled)
         toggleQuake()
-    }
-    canControl(false)
 
+    canControl(false)
     updateCanvas()
     boolRunOnce = true
 }
@@ -202,12 +205,18 @@ export function finishedMaze() {
 var boolRunOnce = true;
 
 export function movePlayer(direction) {
-    if (!finished) {
-        if (!controlls) {
-            console.log("ignored movement")
-            return
-        }
+    if (finished || !controlls)
+        return console.log("Ignored movement")
 
+    if (direction == null)
+        return console.error("NO VALID DIRECTION PROVIDED!!! " + direction)
+
+    //check if quake or phaze is toggled
+    if (quakeToggled) {
+        return quakePlayer(direction)
+    } else if (phazeToggled) {
+        return phazePlayer(direction)
+    } else {
         //get player pos
         var playerPos = getPlayerPosition(gameMaze)
 
@@ -217,74 +226,64 @@ export function movePlayer(direction) {
         var itemLeft = gameMaze[playerPos[0]][playerPos[1] - 1]
         var itemRight = gameMaze[playerPos[0]][playerPos[1] + 1]
 
-        //direction provided + check if direction moving in is a space
-        //only update canvas if it actually changed something
+        switch (direction) {
+            case "up":
+                if (itemUp === "finish") {
+                    finishedMaze()
+                } else if (!(itemUp === "wall")) {
+                    walkOverPath(playerPos, itemUp)
 
-        //check for phaze being on and direction provided
-        if (quakeToggled && !(direction == null)) {
-            quakePlayer(direction)
-        } else if (phazeToggled && !(direction == null)) {
-            phazePlayer(direction)
-        } else {
-            switch (direction) {
-                case "up":
-                    if (itemUp === "finish") {
-                        finishedMaze()
-                    } else if (!(itemUp === "wall")) {
-                        walkOverPath(playerPos, itemUp)
+                    gameMaze[playerPos[0] - 1][playerPos[1]] = "rainbow"
+                    updateCanvas()
+                    shake(80, "up")
+                }
+                break;
+            case "down":
+                if (itemDown === "finish") {
+                    finishedMaze()
+                } else if (!(itemDown === "wall")) {
+                    walkOverPath(playerPos, itemDown)
 
-                        gameMaze[playerPos[0] - 1][playerPos[1]] = "rainbow"
-                        updateCanvas()
-                        shake(80, "up")
-                    }
-                    break;
-                case "down":
-                    if (itemDown === "finish") {
-                        finishedMaze()
-                    } else if (!(itemDown === "wall")) {
-                        walkOverPath(playerPos, itemDown)
+                    gameMaze[playerPos[0] + 1][playerPos[1]] = "rainbow"
+                    updateCanvas()
+                    shake(80, "down")
+                }
+                break;
+            case "left":
+                if (itemLeft === "finish") {
+                    finishedMaze()
+                } else if (!(itemLeft === "wall")) {
+                    walkOverPath(playerPos, itemLeft)
 
-                        gameMaze[playerPos[0] + 1][playerPos[1]] = "rainbow"
-                        updateCanvas()
-                        shake(80, "down")
-                    }
-                    break;
-                case "left":
-                    if (itemLeft === "finish") {
-                        finishedMaze()
-                    } else if (!(itemLeft === "wall")) {
-                        walkOverPath(playerPos, itemLeft)
+                    gameMaze[playerPos[0]][playerPos[1] - 1] = "rainbow"
+                    updateCanvas()
+                    shake(80, "left")
+                }
+                break;
+            case "right":
+                if (itemRight === "finish") {
+                    finishedMaze()
+                } else if (!(itemRight === "wall")) {
+                    walkOverPath(playerPos, itemRight)
 
-                        gameMaze[playerPos[0]][playerPos[1] - 1] = "rainbow"
-                        updateCanvas()
-                        shake(80, "left")
-                    }
-                    break;
-                case "right":
-                    if (itemRight === "finish") {
-                        finishedMaze()
-                    } else if (!(itemRight === "wall")) {
-                        walkOverPath(playerPos, itemRight)
-
-                        gameMaze[playerPos[0]][playerPos[1] + 1] = "rainbow"
-                        updateCanvas()
-                        shake(80, "right")
-                    }
-                    break;
-                default:
-                    console.error("NO VALID DIRECTION PROVIDED!!! " + direction)
-            }
+                    gameMaze[playerPos[0]][playerPos[1] + 1] = "rainbow"
+                    updateCanvas()
+                    shake(80, "right")
+                }
+                break;
+            default:
+                console.error("NO VALID DIRECTION PROVIDED!!! " + direction)
         }
+    }
 
-        //if player moved(compare cords), start the timer
-        var playerPosNew = getPlayerPosition()
-        if (!(playerPos[0] === playerPosNew[0]) || !(playerPos[1] === playerPosNew[1])) {
-            if (boolRunOnce && !finished) {
-                //start timer
-                resetTimer()
-                setRunningShared(true)
-                boolRunOnce = false
-            }
+    //if player moved(compare cords), start the timer
+    var playerPosNew = getPlayerPosition()
+    if (!(playerPos[0] === playerPosNew[0]) || !(playerPos[1] === playerPosNew[1])) {
+        if (boolRunOnce && !finished) {
+            //start timer
+            resetTimer()
+            setRunningShared(true)
+            boolRunOnce = false
         }
     }
 }

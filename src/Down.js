@@ -4,6 +4,7 @@ import { faCircleArrowDown, faCircleArrowLeft, faCircleArrowRight, faCircleArrow
 import { movePlayer } from "./Tool";
 import { defaultNumberOfPhazes, togglePhaze } from "./Phaze";
 import { defaultNumberOfQuakes, toggleQuake } from "./Quake";
+import { getCookie } from "./Cookies";
 
 class Down extends React.Component {
     constructor(props) {
@@ -39,6 +40,14 @@ class Down extends React.Component {
 
     quake() {
         toggleQuake()
+    }
+
+    componentDidMount() {
+        //lower controls
+        if (getCookie("lowerButtonControls") === "false")
+            document.querySelector("#down-div").style.setProperty('display', 'none');
+        else
+            document.querySelector("#down-div").style.setProperty('display', 'inherit');
     }
 
     render() {

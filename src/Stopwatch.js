@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { gameTime } from "./Config";
 import { canControl } from "./Control";
+import { numbersOfRedos } from "./Tool";
 
 var setRunningShared;
 var setTimeShared;
@@ -30,31 +31,30 @@ var Stopwatch = () => {
     setTimeShared = setTime
 
     useEffect(() => {
-        if (setDefaultTime) {
+        if (setDefaultTime)
             setTime(gameTime)
-        }
 
         let interval;
-        if (running) {
-            var changingTime = 0;
-            interval = setInterval(() => {
-                currentTime = time - changingTime
-                if (currentTime === 0) {
-                    canControl(false)
-                    stopTimer()
-                    document.getElementById("ran-out-of-time").style.display = "inherit"
-                    document.getElementById("edit-results-time").innerHTML += "(" + gameTime + "ms)"
+        if (!running)
+            return clearInterval(interval);
 
-                    return;
-                } else {
-                    changingTime += 10
-                }
+        var changingTime = 0;
+        interval = setInterval(() => {
+            currentTime = time - changingTime
+            if (currentTime === 0) {
+                canControl(false)
+                stopTimer()
+                document.getElementById("ran-out-of-time").style.display = "inherit"
+                document.getElementById("edit-results-time").innerHTML += `${gameTime}ms) ${numbersOfRedos}redos)`
 
-                setTime((prevTime) => prevTime - 10);
-            }, 10);
-        } else if (!running) {
-            clearInterval(interval);
-        }
+                return;
+            } else {
+                changingTime += 10
+            }
+
+            setTime((prevTime) => prevTime - 10);
+        }, 10);
+
         return () => clearInterval(interval);
     }, [running]);
 

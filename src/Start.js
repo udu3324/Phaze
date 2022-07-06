@@ -11,7 +11,6 @@ class Start extends React.Component {
         this.closeStart = this.closeStart.bind(this);
     }
 
-
     closeStart() {
         var startDiv = document.getElementById('start-div');
 
@@ -25,15 +24,11 @@ class Start extends React.Component {
     componentDidMount() {
         var startDiv = document.getElementById('start-div');
 
-        //check in cookies if start was closed
-        //if not, change css to make it visible
-        if (getCookie("start") === " ") {
-            //cookie has never been set
+        //check if start was set and show
+        if (getCookie("start") === " ")
             startDiv.style.display = "block"
-        } else {
-            //already opened
+        else
             startDiv.style.display = "none"
-        }
     }
 
     render() {
@@ -47,12 +42,12 @@ class Start extends React.Component {
                     Phaze is a maze with extra things to do. Finish it before the time runs out!
                     <br />
                     <br />
-                    You start at the bottom left of the maze.
+                    You start at the bottom left.
                     <br />
                     <br />
                     PC: WASD / Arrow Keys
                     <br />
-                    Mobile: Swiping / Lower Controls
+                    Mobile: Swiping / Lower Buttons
                     <br />
                     <br />
                     Quake: Breaks a wall and moves through it
@@ -72,11 +67,8 @@ class Start extends React.Component {
 window.addEventListener('click', function (e) {
     var startDiv = document.getElementById('start-div');
 
-    if (document.getElementById("start-div").contains(e.target)) {
-        console.log("yes")
-    } else {
+    if (!document.getElementById("start-div").contains(e.target)) {
         // Clicked outside of start when it was open
-        //save a cookie
         setCookie("start", "opened", 99999)
 
         //change css

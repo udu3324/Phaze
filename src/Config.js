@@ -178,66 +178,48 @@ class Config extends React.Component {
 
     saveConfig() {
         console.log("saving config \n" +
-            "screenShake = " + changedScreenShake + "\n" +
-            "lowerButtonControls = " + changedLowerButtonControls + "\n" +
             "gameTime = " + changedGameTime + "\n" +
             "size = " + changedSize + "\n" +
-            "gameObjectSize = " + changedGameObjectSize)
+            "gameObjectSize = " + changedGameObjectSize + "\n" +
+            "screenShake = " + changedScreenShake + "\n" +
+            "lowerButtonControls = " + changedLowerButtonControls)
 
         //fallback for if size or gameObj size is set to less than recommended sizes
         //set cookies if they have been altered
-        if (changedGameTime === 0) {
-            //its not changed
-            changedGameTime = gameTime
-        } else if (changedGameTime < 10) {
-            //its glitched
-            changedGameTime = 10
-        } else {
-            //its changed
-            gameTime = changedGameTime
-        }
+        if (changedGameTime === 0)
+            changedGameTime = gameTime //unchanged
+        else if (changedGameTime < 10)
+            changedGameTime = 10 //glitched
+        else
+            gameTime = changedGameTime //changed
         setCookie("gameTime", gameTime, 99999)
 
-        if (changedSize === 0) {
-            //its not changed
-            changedSize = size
-        } else if (changedSize < 5) {
-            //its glitched
-            changedSize = 5
-        } else {
-            //its changed
-            size = changedSize
-        }
+        if (changedSize === 0)
+            changedSize = size //unchanged
+        else if (changedSize < 5)
+            changedSize = 5 //glitched
+        else
+            size = changedSize //changed
         setCookie("size", size, 99999)
 
-        if (changedGameObjectSize === 0) {
-            //its not changed
-            changedGameObjectSize = gameObjectSize
-        } else if (changedGameObjectSize < 1) {
-            //its glitched
-            changedGameObjectSize = 1
-        } else {
-            //its changed
-            gameObjectSize = changedGameObjectSize
-        }
+        if (changedGameObjectSize === 0)
+            changedGameObjectSize = gameObjectSize //unchanged
+        else if (changedGameObjectSize < 1)
+            changedGameObjectSize = 1 //glitched
+        else
+            gameObjectSize = changedGameObjectSize //changed
         setCookie("gameObjectSize", gameObjectSize, 99999)
 
-        if (changedScreenShake == null) {
-            //its not changed
-            changedScreenShake = screenShake
-        } else {
-            //its changed
-            screenShake = changedScreenShake
-        }
+        if (changedScreenShake == null)
+            changedScreenShake = screenShake //unchanged
+        else
+            screenShake = changedScreenShake //changed
         setCookie("screenShake", screenShake, 99999)
 
-        if (changedLowerButtonControls == null) {
-            //its not changed
-            changedLowerButtonControls = lowerButtonControls
-        } else {
-            //its changed
-            lowerButtonControls = changedLowerButtonControls
-        }
+        if (changedLowerButtonControls == null)
+            changedLowerButtonControls = lowerButtonControls //unchanged
+        else
+            lowerButtonControls = changedLowerButtonControls //changed
         setCookie("lowerButtonControls", lowerButtonControls, 99999)
 
         //change the time
@@ -250,11 +232,10 @@ class Config extends React.Component {
         resetMaze()
 
         //lower controls
-        if (getCookie("lowerButtonControls") === "false") {
+        if (getCookie("lowerButtonControls") === "false")
             document.querySelector("#down-div").style.setProperty('display', 'none');
-        } else {
+        else
             document.querySelector("#down-div").style.setProperty('display', 'inherit');
-        }
     }
 
     closeConfig() {
@@ -274,12 +255,6 @@ class Config extends React.Component {
         gameObjectSizeInput.value = gameObjectSize
         screenShakeCheckbox.checked = screenShake
         lowerButtonControlsCheckbox.checked = lowerButtonControls
-        //lower controls
-        if (getCookie("lowerButtonControls") === "false") {
-            document.querySelector("#down-div").style.setProperty('display', 'none');
-        } else {
-            document.querySelector("#down-div").style.setProperty('display', 'inherit');
-        }
     }
 
     render() {
@@ -287,7 +262,7 @@ class Config extends React.Component {
             <div className="config-box" id="config-box">
                 <p id="title">Config</p>
                 <a href="https://github.com/udu3324/phaze" target="_blank" rel="noopener noreferrer">
-                    <img id="github-repo" alt="shield" src="https://img.shields.io/badge/Star%20The%20Repo-ffffff?style=for-the-badge&logo=github&logoColor=black"></img>
+                    <img id="github-repo" alt="shield" src="https://img.shields.io/badge/Repository-ffffff?style=for-the-badge&logo=github&logoColor=black"></img>
                 </a>
 
                 <p>

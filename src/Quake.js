@@ -85,10 +85,10 @@ export function quakePlayer(direction) {
                     toggleQuake()
                     updateCanvas()
                     shake(130)
-                } else if (!(itemUp === "wall")) {
-                    toggleQuake()
-                    movePlayer(direction)
                 }
+            } else {
+                toggleQuake()
+                movePlayer(direction)
             }
             break;
         case "down":
@@ -103,17 +103,15 @@ export function quakePlayer(direction) {
                     toggleQuake()
                     updateCanvas()
                     shake(130)
-                } else if (!(itemDown === "wall")) {
-                    toggleQuake()
-                    movePlayer(direction)
                 }
+            } else {
+                toggleQuake()
+                movePlayer(direction)
             }
             break;
         case "left":
             if (itemLeft === "wall") {
                 if (!((playerPos[1] - 1) === 0)) {
-                    console.log(playerPos[1] - 1)
-                    console.log(playerPos[0])
                     walkOverPath(playerPos, itemLeft)
 
                     quakedWalls.push([[playerPos[0]], [playerPos[1] - 1]])
@@ -123,10 +121,10 @@ export function quakePlayer(direction) {
                     toggleQuake()
                     updateCanvas()
                     shake(130)
-                } else if (!(itemLeft === "wall")) {
-                    toggleQuake()
-                    movePlayer(direction)
                 }
+            } else {
+                toggleQuake()
+                movePlayer(direction)
             }
             break;
         case "right":
@@ -141,10 +139,10 @@ export function quakePlayer(direction) {
                     toggleQuake()
                     updateCanvas()
                     shake(130)
-                } else if (!(itemRight === "wall")) {
-                    toggleQuake()
-                    movePlayer(direction)
                 }
+            } else {
+                toggleQuake()
+                movePlayer(direction)
             }
             break;
         default:

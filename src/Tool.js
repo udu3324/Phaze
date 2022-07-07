@@ -174,9 +174,9 @@ export function finishedMaze() {
 
     document.getElementById("finished").style.display = "inherit"
     document.getElementById("edit-results-finished").innerHTML += `<br/>${currentTime}/${gameTime}ms Left` +
-    `<br/>${numberOfPhazes}/${defaultNumberOfPhazes} Phazes Left` + 
-    `<br/>${numberOfQuakes}/${defaultNumberOfQuakes} Quakes Left` +
-    `<br/>${numbersOfRedos} Redos`
+        `<br/>${numberOfPhazes}/${defaultNumberOfPhazes} Phazes Left` +
+        `<br/>${numberOfQuakes}/${defaultNumberOfQuakes} Quakes Left` +
+        `<br/>${numbersOfRedos} Redos`
 
     finished = true
     console.log("finished!")
@@ -211,21 +211,21 @@ export function movePlayer(direction) {
     if (direction == null)
         return console.error("NO VALID DIRECTION PROVIDED!!! " + direction)
 
+    //get player pos
+    var playerPos = getPlayerPosition(gameMaze)
+
     //check if quake or phaze is toggled
     if (quakeToggled) {
-        return quakePlayer(direction)
+        quakePlayer(direction)
     } else if (phazeToggled) {
-        return phazePlayer(direction)
+        phazePlayer(direction)
     } else {
-        //get player pos
-        var playerPos = getPlayerPosition(gameMaze)
-
         //get items nearby
         var itemUp = gameMaze[playerPos[0] - 1][playerPos[1]]
         var itemDown = gameMaze[playerPos[0] + 1][playerPos[1]]
         var itemLeft = gameMaze[playerPos[0]][playerPos[1] - 1]
         var itemRight = gameMaze[playerPos[0]][playerPos[1] + 1]
-
+        
         switch (direction) {
             case "up":
                 if (itemUp === "finish") {

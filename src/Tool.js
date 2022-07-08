@@ -6,7 +6,7 @@ import { canControl, controlls } from './Control';
 import { clearOverlays, updateCanvas } from './Maze';
 import { defaultNumberOfPhazes, numberOfPhazes, phazePlayer, phazeToggled, resetPhaze, togglePhaze } from './Phaze';
 import { defaultNumberOfQuakes, numberOfQuakes, quakedWalls, quakePlayer, quakeToggled, resetQuake, toggleQuake } from './Quake';
-import { currentTime, resetTimer, setRunningShared, stopTimer } from './Stopwatch';
+import { currentTime, resetTimer, startTimer, stopTimer } from './Stopwatch';
 
 export var finished = false;
 
@@ -281,8 +281,7 @@ export function movePlayer(direction) {
     if (!(playerPos[0] === playerPosNew[0]) || !(playerPos[1] === playerPosNew[1])) {
         if (boolRunOnce && !finished) {
             //start timer
-            resetTimer()
-            setRunningShared(true)
+            startTimer()
             boolRunOnce = false
         }
     }

@@ -4,7 +4,7 @@ import { resetMaze } from "./Tool";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowDown, faArrowUp, faCircleXmark, faFloppyDisk, faKeyboard, faRotate, faRulerCombined, faStop, faStopwatch } from '@fortawesome/free-solid-svg-icons'
-import { setTimeShared } from "./Stopwatch";
+import { resetTimer } from "./Stopwatch";
 
 //default values (can be changed by the config)
 export var gameTime = 15000
@@ -222,8 +222,8 @@ class Config extends React.Component {
             lowerButtonControls = changedLowerButtonControls //changed
         setCookie("lowerButtonControls", lowerButtonControls, 99999)
 
-        //change the time
-        setTimeShared(gameTime)
+        //reset the time
+        resetTimer()
 
         //change img size
         document.documentElement.style.setProperty('--gameObjectSize', gameObjectSize + "vmin");

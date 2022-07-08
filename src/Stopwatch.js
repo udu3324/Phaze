@@ -6,22 +6,23 @@ import { numbersOfRedos } from "./Tool";
 var setRunningShared;
 var setTimeShared;
 
-var setDefaultTime = true
+export var currentTime = 0;
 
-var currentTime = 0;
-export { setRunningShared, setTimeShared, currentTime };
+export function startTimer() {
+    setRunningShared(true)
+}
 
 export function stopTimer() {
-    setDefaultTime = false
     setRunningShared(false)
     setTimeShared(currentTime)
 }
 
 export function resetTimer() {
-    setDefaultTime = true
     setRunningShared(false)
     setTimeShared(gameTime)
 }
+
+var runOnce = true;
 
 var Stopwatch = () => {
     const [time, setTime] = useState(0);
@@ -31,32 +32,33 @@ var Stopwatch = () => {
     setTimeShared = setTime
 
     useEffect(() => {
-        if (setDefaultTime)
-            setTime(gameTime)
-
         let interval;
+        
+        if (runOnce) {
+            setTime(gameTime)
+            runOnce = false
+        }
+
+        currentTime = time
+
         if (!running)
             return clearInterval(interval);
 
-        var changingTime = 0;
         interval = setInterval(() => {
-            currentTime = time - changingTime
-            if (currentTime === 0) {
+            if (time === 0) {
                 canControl(false)
                 stopTimer()
                 document.getElementById("ran-out-of-time").style.display = "inherit"
                 document.getElementById("edit-results-time").innerHTML += `(${gameTime}ms) (${numbersOfRedos}redos)`
 
                 return;
-            } else {
-                changingTime += 10
             }
 
             setTime((prevTime) => prevTime - 10);
         }, 10);
 
         return () => clearInterval(interval);
-    }, [running]);
+    }, [time, running]);
 
     return (
         <div className="stopwatch">

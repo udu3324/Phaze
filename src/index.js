@@ -4,6 +4,9 @@ import ReactDOM from 'react-dom';
 import './styles/index.css';
 import App from './App';
 
+import reportWebVitals from './reportWebVitals';
+import { sendToVercelAnalytics } from './Vitals';
+
 import { createMaze } from './Tool'
 import { createControls } from './Control';
 import { changeGameObjectSize, changeGameTime, changeLowerButtonControls, changeScreenShake, changeSize, gameObjectSize, gameTime, size } from './Config';
@@ -50,3 +53,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+reportWebVitals(sendToVercelAnalytics);

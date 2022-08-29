@@ -16,7 +16,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
@@ -68,7 +67,7 @@
 
 @keyframes shake-up {
   0% {
-    transform: translate(0px, 0px);
+    transform: translate(0px, 0px)
   }
 
   50% {
@@ -206,10 +205,10 @@ a:active {
 .top-btn {
   font-family: 'JetBrains Mono', monospace;
   color: #ffffff;
-  font-size: calc(8px + 2vmin);
+  font-size: 1.7rem;
   background: none;
   border: none;
-  padding: 4px;
+  padding: 0.3rem;
   display: flex;
 }
 
@@ -224,9 +223,9 @@ a:active {
 
 /* Stopwatch */
 .stopwatch {
-  font-size: calc(30px + 2vmin);
-  padding-left: 30px;
-  padding-right: 30px;
+  font-size: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 /* Down Div Stuff*/
@@ -238,28 +237,28 @@ a:active {
 .down-btn {
   font-family: 'JetBrains Mono', monospace;
   color: #ffffff;
-  font-size: calc(13px + 2vmin);
+  font-size: 1.9rem;
   background: none;
   border: none;
-  padding: 4px;
+  padding: 0.3rem;
   display: flex;
-  border-radius: 30px;
-  margin: 4px;
+  border-radius: 3rem;
+  margin: 0.3rem;
 }
 
 .control-btn {
   color: #ffffff;
-  font-size: calc(19px + 2vmin);
+  font-size: 2.5rem;
   background: none;
   border: none;
-  border-radius: 30px;
-  height: calc(19px + 2vmin);
-  width: calc(19px + 2vmin);
-  padding: 0px;
+  border-radius: 3rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0rem;
 }
 
 div#space {
-  padding-left: 21px;
+  padding-left: 1rem;
 }
 
 button#up-btn:active,
@@ -280,16 +279,12 @@ button#right-btn:active {
 
 .down-div {
   display: inherit;
-  padding-top: 5px;
-}
-
-div#tools {
-  padding-left: 13px;
 }
 
 /* tysm https://stackoverflow.com/a/53375498/16216937 */
 
 #controller {
+  padding-top: 1rem;
   display: grid;
   grid-template-areas: "l space r";
 }
@@ -331,11 +326,11 @@ div#tools {
 
 /* Game */
 #maze-canvas {
-  line-height: 0px;
+  line-height: 0rem;
 }
 
 .overlay-p {
-  margin: 0px 0px 11px 0px;
+  margin-bottom: 1rem;
 }
 
 .space,
@@ -413,7 +408,7 @@ div#maze {
   z-index: 1;
   transition: 0.3s ease;
   text-align: left;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(0.5rem);
   font-size: 3.6vmin;
 }
 
@@ -431,14 +426,13 @@ div#finished {
 }
 
 .config-box {
-  width: 41vmin;
+  width: 39vh;
   color: #ffffff;
-  box-shadow: 0px 0px 17px 1px #1d1f26;
   background: #16181c;
-  padding: 18px;
-  border-radius: 5px;
+  padding: 1.3rem;
+  border-radius: 1rem;
   text-align: left;
-  font-size: 18px;
+  font-size: 1.3rem;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -448,10 +442,9 @@ div#finished {
 
 input[type="number" i] {
   font-family: 'JetBrains Mono', monospace;
-  width: 58px;
+  width: 5rem;
   text-align: center;
   border: 2px solid #ffffff;
-  margin-bottom: 4px;
   background-color: #323740;
   color: #ffffff;
   border-radius: 3px 0px 0px 3px;
@@ -489,10 +482,9 @@ input[type=number] {
 .container {
   display: block;
   position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
+  padding-left: 2.4rem;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 1.2rem;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -513,10 +505,10 @@ input[type=number] {
   position: absolute;
   top: 0;
   left: 0;
-  height: 22px;
-  width: 22px;
+  height: 1.5rem;
+  width: 1.5rem;
   background-color: #eee;
-  border-radius: 3px;
+  border-radius: 0.4rem;
 }
 
 /* On mouse-over, add a grey background color */
@@ -543,10 +535,10 @@ input[type=number] {
 
 /* Style the checkmark/indicator */
 .container .checkmark:after {
-  left: 7px;
-  top: 4px;
-  width: 5px;
-  height: 10px;
+  left: 0.5rem;
+  top: 0.2rem;
+  width: 0.3rem;
+  height: 0.6rem;
   border: solid white;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
@@ -561,10 +553,9 @@ input[type=number] {
 
 .start-box {
   color: #ffffff;
-  box-shadow: 0px 0px 17px 1px #1d1f26;
   background: #16181c;
-  padding: 18px;
-  border-radius: 5px;
+  padding: 1.5rem;
+  border-radius: 1rem;
   text-align: left;
   position: absolute;
   top: 50%;
@@ -573,37 +564,32 @@ input[type=number] {
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
   z-index: 2;
-  width: 60.2vmin;
+  width: 37vh;
 }
 
 #x {
   position: absolute;
   background: #363b46;
   color: white;
-  top: -10px;
-  right: -10px;
-  border-radius: 44px;
-  font-size: 30px;
+  top: -1rem;
+  right: -1rem;
+  border-radius: 5rem;
+  font-size: 2.5rem;
   font-family: inherit;
   border-style: solid;
   border-color: #1d2026;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 img#github-repo {
-  border-radius: 5px;
+  border-radius: 3rem;
 }
 
 p#title {
   font-weight: bold;
-  font-size: 35px;
+  font-size: 2.5rem;
   margin: 0px 0px 5px 0px;
-}
-
-img {
-  border-radius: 13px;
-  padding: 3px;
 }
 
 /* Remove Focus */
@@ -611,4 +597,25 @@ textarea:focus,
 input:focus,
 button:focus {
   outline: none;
+}
+
+@media only screen and (max-device-width: 512px) {
+  .up-redo-btn {
+    grid-area: left;
+  }
+
+  .up-time {
+    grid-area: middle;
+  }
+
+  .up-config-btn {
+    grid-area: right;
+  }
+
+  .up-div {
+    display: grid;
+    grid-template-areas:
+      'left . . right'
+      'middle middle middle middle';
+  }
 }

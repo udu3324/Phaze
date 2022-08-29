@@ -31,13 +31,13 @@ class Up extends React.Component {
 
     render() {
         return <div className="up-div">
-            <div id="left">
+            <div id="left" className="up-redo-btn">
                 <button onClick={mazeRedo} id="redo-reset-btn" className="top-btn" type="button"><FontAwesomeIcon icon={faRefresh} /><u>R</u>edo</button>
             </div>
-            <div id="middle">
+            <div id="middle" className="up-time">
                 <Stopwatch />
             </div>
-            <div id="right">
+            <div id="right" className="up-config-btn">
                 <button onClick={this.openConfig} id="config-btn" className="top-btn" type="button"><FontAwesomeIcon icon={faGear} /><u>C</u>onfig</button>
             </div>
         </div>;

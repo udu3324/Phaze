@@ -2,7 +2,7 @@ import React from "react";
 import { getCookie, setCookie } from "./Cookies";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faMeteor, faPersonRunning, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 class Start extends React.Component {
     constructor(props) {
@@ -23,12 +23,20 @@ class Start extends React.Component {
 
     componentDidMount() {
         var startDiv = document.getElementById('start-div');
+        var startControls = document.getElementById('start-controls');
 
         //check if start was set and show
         if (getCookie("start") === " ")
             startDiv.style.display = "block"
         else
             startDiv.style.display = "none"
+
+        //show different control schemes for different platforms
+        if ('ontouchstart' in document.documentElement)
+            startControls.innerHTML = "Controls: Swiping / Pressing Buttons"
+        else
+            startControls.innerHTML = "Controls: WASD / Arrow Keys & (Q)uake Phaz(E) (R)edo (C)onfig"
+        
     }
 
     render() {
@@ -37,27 +45,18 @@ class Start extends React.Component {
                 <button onClick={this.closeStart} id="x">
                     <FontAwesomeIcon icon={faXmark} />
                 </button>
-                <p id="title">Welcome to Phaze!</p>
+                <p id="title">Welcome!</p>
                 <p>
-                    Phaze is a maze with extra things to do. Finish it before the time runs out!
+                    Phaze is a maze with extra things. You start at the bottom-left.
                     <br />
                     <br />
-                    You start at the bottom left.
+                    <span id="start-controls"></span>
                     <br />
                     <br />
-                    PC: WASD / Arrow Keys
-                    <br />
-                    Mobile: Swiping / Lower Buttons
+                    <FontAwesomeIcon icon={faMeteor} /> Quake - Activate and aim towards a wall to break it
                     <br />
                     <br />
-                    Quake: Breaks a wall and moves through it
-                    <br />
-                    <img src="https://camo.githubusercontent.com/3a730420d30eee5caf53211f32cb4935e6b1b206f0b43dce0e47e2f54e35db90/68747470733a2f2f63646e2e646973636f72646170702e636f6d2f6174746163686d656e74732f3735313933353134393537383338373435362f3935343836303630323534353830373338302f756e6b6e6f776e2e706e67" alt="quake"></img>
-                    <br />
-                    <br />
-                    Phaze: Moves to the next branch in the maze
-                    <br />
-                    <img src="https://camo.githubusercontent.com/bb7343ce09725b59fa2b87be13af55b9a88bd42a8d9670a242ca5e1dd485c7ff/68747470733a2f2f63646e2e646973636f72646170702e636f6d2f6174746163686d656e74732f3735313933353134393537383338373435362f3935343836333237313333393439393534302f756e6b6e6f776e2e706e67" alt="phaze"></img>
+                    <FontAwesomeIcon icon={faPersonRunning} /> Phaze - Moves you to the next branch
                 </p>
             </div>
         </div>;

@@ -554,7 +554,6 @@ input[type=number] {
 .start-box {
   color: #ffffff;
   background: #16181c;
-  padding: 1.5rem;
   border-radius: 1rem;
   text-align: left;
   position: absolute;
@@ -567,26 +566,41 @@ input[type=number] {
   width: 37vh;
 }
 
-#x {
-  position: absolute;
+.start-box-top {
+  padding: 1.5rem 1.5rem 0.8rem 1.5rem;
+  display: flex;
   background: #363b46;
-  color: white;
-  top: -1rem;
-  right: -1rem;
-  border-radius: 5rem;
-  font-size: 2.5rem;
-  font-family: inherit;
-  border-style: solid;
-  border-color: #1d2026;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  border-radius: 1rem;
 }
 
-img#github-repo {
+.start-box-bottom {
+  padding: 0.75rem 1.5rem 1.5rem;
+  font-size: 2vmin;
+}
+
+.config-section {
+  margin-bottom: 1rem;
+}
+
+#x {
+  background: #363b46;
+  color: white;
+  border-radius: 1rem;
+  font-size: 2.5rem;
+  font-family: inherit;
+  border-style: none;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.github-repo {
+  margin-top: 1rem;
   border-radius: 3rem;
 }
 
-p#title {
+.title {
   font-weight: bold;
   font-size: 2.5rem;
   margin: 0px 0px 5px 0px;

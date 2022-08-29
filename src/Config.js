@@ -260,55 +260,52 @@ class Config extends React.Component {
     render() {
         return <div className="config-div" id="config-div">
             <div className="config-box" id="config-box">
-                <p id="title">Config</p>
-                <a href="https://github.com/udu3324/phaze" target="_blank" rel="noopener noreferrer">
-                    <img id="github-repo" alt="shield" src="https://img.shields.io/badge/Repository-ffffff?style=for-the-badge&logo=github&logoColor=black"></img>
-                </a>
-
-                <p>
+                <div className="config-section">
+                    <span className="title">Config</span>
+                    <br />
+                    <a href="https://github.com/udu3324/phaze" target="_blank" rel="noopener noreferrer">
+                        <img className="github-repo" alt="shield" src="https://img.shields.io/badge/GitHub%20Repository-ffffff?style=for-the-badge&logo=github&logoColor=black"></img>
+                    </a>
+                </div>
+                <div className="config-section">
                     Game Time (ms) <FontAwesomeIcon icon={faStopwatch} />
                     <br />
                     <input onChange={this.handleGameTime} type="number" id="game-time-input" min="1" max="5000" />
                     <button onClick={this.gameTimeUp} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowUp} /></button>
                     <button style={{ borderRadius: '0px 3px 3px 0px' }} onClick={this.gameTimeDown} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowDown} /></button>
-                </p>
-
-                <p>
+                </div>
+                <div className="config-section">
                     Maze Size <FontAwesomeIcon icon={faRulerCombined} />
                     <br />
                     <input onChange={this.handleChangeSize} type="number" id="maze-size-input" min="5" max="5000" />
                     <button onClick={this.mazeSizeUp} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowUp} /></button>
                     <button style={{ borderRadius: '0px 3px 3px 0px' }} onClick={this.mazeSizeDown} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowDown} /></button>
-                </p>
-
-                <p>
+                </div>
+                <div className="config-section">
                     Game Object Size <FontAwesomeIcon icon={faStop} />
                     <br />
                     <input onChange={this.handleGameObjChangeSize} type="number" id="game-obj-size-input" min="1" max="500" />
                     <button onClick={this.gameObjectSizeUp} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowUp} /></button>
                     <button style={{ borderRadius: '0px 3px 3px 0px' }} onClick={this.gameObjectSizeDown} className="conf-btn" type="button"><FontAwesomeIcon icon={faArrowDown} /></button>
-
-                </p>
-
-                <p>
+                </div>
+                <div className="config-section">
                     <label className="container">
                         Screen Shake <FontAwesomeIcon icon={faRotate} />
                         <input onChange={this.handleScreenShake} type="checkbox" id="screen-shake-checkbox" />
                         <span className="checkmark"></span>
                     </label>
-                </p>
-
-                <p>
+                </div>
+                <div className="config-section">
                     <label className="container">
                         Lower Button Controls <FontAwesomeIcon icon={faKeyboard} />
                         <input onChange={this.handleLowerButtonControls} type="checkbox" id="lower-button-controls-checkbox" />
                         <span className="checkmark"></span>
                     </label>
-                </p>
-
-                <button onClick={this.saveConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faFloppyDisk} />Save</button>
-                <button onClick={this.closeConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faCircleXmark} /><u>C</u>lose</button>
-
+                </div>
+                <div>
+                    <button onClick={this.saveConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faFloppyDisk} />Save</button>
+                    <button onClick={this.closeConfig} className="top-btn" type="button"><FontAwesomeIcon icon={faCircleXmark} /><u>C</u>lose</button>
+                </div>
             </div>
         </div>;
     }

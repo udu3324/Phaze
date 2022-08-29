@@ -59,10 +59,7 @@ class Down extends React.Component {
                     <button onClick={this.down} game-btn="KEY_DOWN" aria-label="down" id="down-btn" className="control-btn" type="button"><FontAwesomeIcon icon={faCircleArrowDown} /></button>
                     <button onClick={this.right} game-btn="KEY_RIGHT" aria-label="right" id="right-btn" className="control-btn" type="button"><FontAwesomeIcon icon={faCircleArrowRight} /></button>
                 </div>
-
-                <div id="space" grid="space">
-                </div>
-
+                <div id="space" grid="space"></div>
                 <div grid="tool">
                     <button onClick={this.quake} game-btn="KEY_QUAKE" id="quake-btn" className="down-btn" type="button"><FontAwesomeIcon icon={faMeteor} /><u>Q</u>uake({defaultNumberOfQuakes})</button>
                     <button onClick={this.phaze} game-btn="KEY_PHAZE" id="phaze-btn" className="down-btn" type="button"><FontAwesomeIcon icon={faPersonRunning} />Phaz<u>e</u>({defaultNumberOfPhazes})</button>

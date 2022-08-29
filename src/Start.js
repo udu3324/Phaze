@@ -36,17 +36,19 @@ class Start extends React.Component {
             startControls.innerHTML = "Controls: Swiping / Pressing Buttons"
         else
             startControls.innerHTML = "Controls: WASD / Arrow Keys & (Q)uake Phaz(E) (R)edo (C)onfig"
-        
+
     }
 
     render() {
         return <div className="start-div" id="start-div">
             <div className="start-box">
-                <button onClick={this.closeStart} id="x">
-                    <FontAwesomeIcon icon={faXmark} />
-                </button>
-                <p id="title">Welcome!</p>
-                <p>
+                <div className="start-box-top">
+                    <span className="title">Welcome!</span>
+                    <button onClick={this.closeStart} id="x">
+                        <FontAwesomeIcon icon={faXmark} />
+                    </button>
+                </div>
+                <div className="start-box-bottom">
                     Phaze is a maze with extra things. You start at the bottom-left.
                     <br />
                     <br />
@@ -57,7 +59,7 @@ class Start extends React.Component {
                     <br />
                     <br />
                     <FontAwesomeIcon icon={faPersonRunning} /> Phaze - Moves you to the next branch
-                </p>
+                </div>
             </div>
         </div>;
     }

@@ -333,35 +333,35 @@ button#right-btn:active {
   margin-bottom: 1rem;
 }
 
-.space,
+.o,
 .missing,
-.wall,
-.start,
-.finish,
-.path,
-.rainbow {
+.w,
+.s,
+.f,
+.v,
+.x {
   height: var(--gameObjectSize);
   width: var(--gameObjectSize);
   float: left;
 }
 
-.space {
+.o {
   background-color: #ffffff;
 }
 
-.wall {
+.w {
   background-color: #000000;
 }
 
-.start {
+.s {
   background-color: #ff0000;
 }
 
-.finish {
+.f {
   background-color: #4cff00;
 }
 
-.path {
+.v {
   background-color: #808080;
 }
 
@@ -369,7 +369,7 @@ button#right-btn:active {
   background-color: #00d9ff;
 }
 
-.rainbow {
+.x {
   background: linear-gradient(to top, #ff0000, #ff0000);
   animation: animate 5s linear infinite;
 }

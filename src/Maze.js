@@ -11,39 +11,37 @@ export function clearOverlays() {
     document.getElementById("edit-results-finished").innerHTML = "You finished the maze! "
 }
 
-// https://stackoverflow.com/questions/15164655/generate-html-table-from-2d-javascript-array
-function makeImageTable(myArray) {
+function makeImageTable(arr) {
     var result = "";
-
-    for (var i = 0; i < myArray.length; i++) {
-        result += "<div id=\"" + i + "\">";
-        for (var j = 0; j < myArray[i].length; j++) {
-            switch (myArray[i][j]) {
+    
+    for (var i = 0; i < arr.length; i++) {
+        for (var j = 0; j < arr[i].length; j++) {
+            result += '<div class="'
+            switch (arr[i][j]) {
                 case "space":
-                    result += "<div class=\"space\"></div>";
+                    result += 'o';
                     break;
                 case "wall":
-                    result += "<div class=\"wall\"></div>";
+                    result += 'w';
                     break;
                 case "start":
-                    result += "<div class=\"start\"></div>";
+                    result += 's';
                     break;
                 case "finish":
-                    result += "<div class=\"finish\"></div>";
+                    result += 'f';
                     break;
                 case "path":
-                    result += "<div class=\"path\"></div>";
+                    result += 'v';
                     break;
                 case "rainbow":
-                    result += "<div class=\"rainbow\"></div>";
+                    result += 'x';
                     break;
                 default:
-                    //not correctly set img
-                    result += "<div class=\"missing\"></div>";
-                    console.error("NO VALID ITEM SET!!!")
+                    result += 'missing';
             }
+            result += '"></div>'
         }
-        result += "</div>";
+        result += "<br/>";
     }
     return result;
 }

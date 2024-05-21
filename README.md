@@ -1,4 +1,4 @@
-<img align="right" src="https://media.discordapp.net/attachments/751935149578387456/954859042969366569/logo512.png" height="200" width="200">  
+<img align="right" src="https://raw.githubusercontent.com/udu3324/Phaze/master/public/logo512.png" height="200" width="200">  
 
 <img alt="GitHub" src="https://img.shields.io/github/license/udu3324/Phaze">  
 
@@ -13,21 +13,21 @@ You can use the tools as a advantage to finish the maze faster. A tool is activa
  
 **Not Active** <br/>
 You can't use them right now. Activate it by pressing the button or typing the key-bind. <br/>
-![not active](https://cdn.discordapp.com/attachments/751935149578387456/954860602545807380/unknown.png)
+![not active](https://raw.githubusercontent.com/udu3324/Phaze/master/public/1.png)
     
 **Active** <br/>
 Use them! <br/>
-![active](https://cdn.discordapp.com/attachments/751935149578387456/954861080230903878/unknown.png)
+![active](https://raw.githubusercontent.com/udu3324/Phaze/master/public/2.png)
     
 **Phaze Tool** <br/>
 Pressing E toggles Phaze. When moving with Phaze toggled, you go to the next branch in the maze. Each maze gives only 10 Phazes. The blue dots (not drawn in game) show where the player can move with Phaze on. <br/>
-![phaze](https://cdn.discordapp.com/attachments/751935149578387456/954856457227087962/unknown.png) <br/>
-![phaze2](https://cdn.discordapp.com/attachments/751935149578387456/954863271339499540/unknown.png) <br/>
+![phaze](https://raw.githubusercontent.com/udu3324/Phaze/master/public/3.png) <br/>
+![phaze2](https://raw.githubusercontent.com/udu3324/Phaze/master/public/4.png) <br/>
     
 **Quake Tool** <br/>
 Pressing Q toggles Quake. Quake allows a player to break a wall and move through it. (cant break outer border walls) Each maze gives only 3 Quakes as they're very overpowered. The yellow dots (not drawn in game) show which walls the player can break. <br/>
-![quake](https://media.discordapp.net/attachments/751935149578387456/954858183099318332/unknown.png) <br/>
-![quake2](https://media.discordapp.net/attachments/751935149578387456/954860602545807380/unknown.png) <br/>
+![quake](https://raw.githubusercontent.com/udu3324/Phaze/master/public/5.png) <br/>
+![quake2](https://raw.githubusercontent.com/udu3324/Phaze/master/public/6.png) <br/>
     
 ## Installation and Setup
 Before installing and setting up Phaze, you need [Node Package Manager](https://www.npmjs.com/) installed. Clone the repository by clicking [here](https://github.com/udu3324/phaze/archive/refs/heads/master.zip). After extracting the zip, open it up in your favorite IDE or a terminal. Run `npm install` to install the required dependencies. Then run `npm start` to start Phaze.
